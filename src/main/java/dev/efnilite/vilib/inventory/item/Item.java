@@ -8,6 +8,7 @@ import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.event.block.SpongeAbsorbEvent;
+import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
@@ -107,6 +108,12 @@ public class Item extends MenuItem {
 
         if (Version.isHigherOrEqual(Version.V1_13)) {
             for (Attribute attribute : attributes.keySet()) {
+                @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
+
+                if (present != null) {
+                    meta.removeAttributeModifier(attribute);
+                }
+
                 meta.addAttributeModifier(attribute, attributes.get(attribute));
             }
 
@@ -304,7 +311,32 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item attribute(@NotNull Attribute attribute, double value, AttributeModifier.Operation operation) {
-        attributes.put(attribute, new AttributeModifier("", value, operation));
+        attributes.put(attribute, new AttributeModifier(attribute.getKey().getKey(), value, operation));
+
+        return this;
+    }
+
+    /**
+     * Adds the provided attribute to this item, with the specified value and the operation, only applying to a specific slot.
+     *
+     * @see AttributeModifier.Operation
+     *
+     * @param   attribute
+     *          The attribute
+     *
+     * @param   value
+     *          The value
+     *
+     * @param   operation
+     *          The operation
+     *
+     * @param   slot
+     *          The slot
+     *
+     * @return the instance of this class
+     */
+    public Item attribute(@NotNull Attribute attribute, double value, @NotNull AttributeModifier.Operation operation, @NotNull EquipmentSlot slot) {
+        attributes.put(attribute, new AttributeModifier(UUID.randomUUID(), attribute.getKey().getKey(), value, operation, slot));
 
         return this;
     }
