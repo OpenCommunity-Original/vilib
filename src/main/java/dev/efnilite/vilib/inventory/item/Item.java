@@ -108,10 +108,12 @@ public class Item extends MenuItem {
 
         if (Version.isHigherOrEqual(Version.V1_13)) {
             for (Attribute attribute : attributes.keySet()) {
-                @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
+                if (meta.hasAttributeModifiers()) {
+                    @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
 
-                if (present != null) {
-                    meta.removeAttributeModifier(attribute);
+                    if (present != null) {
+                        meta.removeAttributeModifier(attribute);
+                    }
                 }
 
                 meta.addAttributeModifier(attribute, attributes.get(attribute));
