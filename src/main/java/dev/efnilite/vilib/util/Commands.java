@@ -23,7 +23,7 @@ public class Commands {
     static {
         try {
             syncCommands = getCBClass().getMethod("syncCommands");
-        } catch (NoSuchMethodException ignored) {
+        } catch (Exception ignored) {
 
         }
     }
