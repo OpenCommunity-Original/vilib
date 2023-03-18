@@ -37,7 +37,7 @@ public class Item extends MenuItem {
     private ItemMeta meta;
     private Material material;
     private List<String> lore = new ArrayList<>();
-//    private Map<Attribute, AttributeModifier> attributes = new HashMap<>();
+    private Map<Attribute, AttributeModifier> attributes = new HashMap<>();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**
@@ -292,73 +292,73 @@ public class Item extends MenuItem {
         return this;
     }
 
-//    /**
-//     * Adds the provided attribute to this item, with the specified value and the operation.
-//     * Example:
-//     * <br>
-//     * <code>
-//     *  item.attribute(Attribute.GENERIC_ATTACK_SPEED, -10, AttributeModifier.Operation.ADD_NUMBER)
-//     * </code>
-//     * @see AttributeModifier.Operation
-//     *
-//     * @param   attribute
-//     *          The attribute
-//     *
-//     * @param   value
-//     *          The value
-//     *
-//     * @param   operation
-//     *          The operation
-//     *
-//     * @return the instance of this class
-//     */
-//    public Item attribute(@NotNull Attribute attribute, double value, AttributeModifier.Operation operation) {
-//        attributes.put(attribute, new AttributeModifier(attribute.getKey().getKey(), value, operation));
-//
-//        return this;
-//    }
+    /**
+     * Adds the provided attribute to this item, with the specified value and the operation.
+     * Example:
+     * <br>
+     * <code>
+     *  item.attribute(Attribute.GENERIC_ATTACK_SPEED, -10, AttributeModifier.Operation.ADD_NUMBER)
+     * </code>
+     * @see AttributeModifier.Operation
+     *
+     * @param   attribute
+     *          The attribute
+     *
+     * @param   value
+     *          The value
+     *
+     * @param   operation
+     *          The operation
+     *
+     * @return the instance of this class
+     */
+    public Item attribute(@NotNull Attribute attribute, double value, AttributeModifier.Operation operation) {
+        attributes.put(attribute, new AttributeModifier(attribute.getKey().getKey(), value, operation));
 
-//    /**
-//     * Adds the provided attribute to this item, with the specified value and the operation, only applying to a specific slot.
-//     *
-//     * @see AttributeModifier.Operation
-//     *
-//     * @param   attribute
-//     *          The attribute
-//     *
-//     * @param   value
-//     *          The value
-//     *
-//     * @param   operation
-//     *          The operation
-//     *
-//     * @param   slot
-//     *          The slot
-//     *
-//     * @return the instance of this class
-//     */
-//    public Item attribute(@NotNull Attribute attribute, double value, @NotNull AttributeModifier.Operation operation, @NotNull EquipmentSlot slot) {
-//        attributes.put(attribute, new AttributeModifier(UUID.randomUUID(), attribute.getKey().getKey(), value, operation, slot));
-//
-//        return this;
-//    }
+        return this;
+    }
 
-//    /**
-//     * Adds the provided {@link AttributeModifier} to the item with {@link Attribute} used as identification.
-//     *
-//     * @param   attribute
-//     *          The attribute.
-//     *
-//     * @param   modifier
-//     *          The modifier.
-//     *
-//     * @return the instance of this class
-//     */
-//    public Item attribute(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
-//        attributes.put(attribute, modifier);
-//
-//        return this;
-//    }
+    /**
+     * Adds the provided attribute to this item, with the specified value and the operation, only applying to a specific slot.
+     *
+     * @see AttributeModifier.Operation
+     *
+     * @param   attribute
+     *          The attribute
+     *
+     * @param   value
+     *          The value
+     *
+     * @param   operation
+     *          The operation
+     *
+     * @param   slot
+     *          The slot
+     *
+     * @return the instance of this class
+     */
+    public Item attribute(@NotNull Attribute attribute, double value, @NotNull AttributeModifier.Operation operation, @NotNull EquipmentSlot slot) {
+        attributes.put(attribute, new AttributeModifier(UUID.randomUUID(), attribute.getKey().getKey(), value, operation, slot));
+
+        return this;
+    }
+
+    /**
+     * Adds the provided {@link AttributeModifier} to the item with {@link Attribute} used as identification.
+     *
+     * @param   attribute
+     *          The attribute.
+     *
+     * @param   modifier
+     *          The modifier.
+     *
+     * @return the instance of this class
+     */
+    public Item attribute(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
+        attributes.put(attribute, modifier);
+
+        return this;
+    }
 
     /**
      * Sets this item's model id
