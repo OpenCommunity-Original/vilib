@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeModifier;
 import org.bukkit.enchantments.Enchantment;
-import org.bukkit.event.block.SpongeAbsorbEvent;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
@@ -106,23 +105,23 @@ public class Item extends MenuItem {
         meta.setLore(Strings.colour(lore));
         meta.setCustomModelData(modelId);
 
-//        if (Version.isHigherOrEqual(Version.V1_13)) {
-//            for (Attribute attribute : attributes.keySet()) {
-//                if (meta.hasAttributeModifiers()) {
-//                    @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
-//
-//                    if (present != null) {
-//                        meta.removeAttributeModifier(attribute);
-//                    }
-//                }
-//
-//                meta.addAttributeModifier(attribute, attributes.get(attribute));
-//            }
-//
-//            ((Damageable) meta).setDamage(
-//                Math.abs(durability - material.getMaxDurability()));
-//            meta.setUnbreakable(unbreakable);
-//        }
+        if (Version.isHigherOrEqual(Version.V1_13)) {
+            for (Attribute attribute : attributes.keySet()) {
+                if (meta.hasAttributeModifiers()) {
+                    @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
+
+                    if (present != null) {
+                        meta.removeAttributeModifier(attribute);
+                    }
+                }
+
+                meta.addAttributeModifier(attribute, attributes.get(attribute));
+            }
+
+            ((Damageable) meta).setDamage(
+                Math.abs(durability - material.getMaxDurability()));
+            meta.setUnbreakable(unbreakable);
+        }
 
         item.setItemMeta(meta);
         return item;
@@ -138,7 +137,7 @@ public class Item extends MenuItem {
         item.unbreakable = unbreakable;
         item.meta = meta;
         item.lore = lore;
-//        item.attributes = attributes;
+        item.attributes = attributes;
         item.enchantments = enchantments;
 
         return item;
