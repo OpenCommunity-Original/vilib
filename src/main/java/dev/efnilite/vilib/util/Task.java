@@ -31,9 +31,7 @@ public class Task {
     /**
      * Returns a new Task instance
      *
-     * @param   plugin
-     *          The plugin which to register this Task with
-     *
+     * @param plugin The plugin which to register this Task with
      * @return the created Task instance
      */
     public static Task create(Plugin plugin) {
@@ -43,9 +41,7 @@ public class Task {
     /**
      * Specifies which Java Runnable should be executed. This supports lambdas.
      *
-     * @param   runnable
-     *          The Java Runnable that is going to be run
-     *
+     * @param runnable The Java Runnable that is going to be run
      * @return the instance of the class
      */
     public Task execute(Runnable runnable) {
@@ -56,9 +52,7 @@ public class Task {
     /**
      * Specifies which Bukkit Runnable should be executed
      *
-     * @param   runnable
-     *          The Bukkit Runnable that is going to be run
-     *
+     * @param runnable The Bukkit Runnable that is going to be run
      * @return the instance of the class
      */
     public Task execute(BukkitRunnable runnable) {
@@ -79,9 +73,7 @@ public class Task {
     /**
      * The delay this task will run with
      *
-     * @param   delay
-     *          The delay in ticks
-     *
+     * @param delay The delay in ticks
      * @return the instance of this class
      */
     public Task delay(int delay) {
@@ -92,9 +84,7 @@ public class Task {
     /**
      * The repeating interval this task will run with
      *
-     * @param   repeat
-     *          The interval in ticks
-     *
+     * @param repeat The interval in ticks
      * @return the instance of this class
      */
     public Task repeat(int repeat) {

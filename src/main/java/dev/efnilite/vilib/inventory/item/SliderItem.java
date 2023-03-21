@@ -27,9 +27,7 @@ public class SliderItem extends MenuItem {
      * Sets the initial viewing index.
      * If you set up 2 items, with index 0 and 1, you can specify which will be viewed first.
      *
-     * @param   initial
-     *          The initial viewing index
-     *
+     * @param initial The initial viewing index
      * @return the instance of this class
      */
     public SliderItem initial(int initial) {
@@ -42,15 +40,9 @@ public class SliderItem extends MenuItem {
      * The Function will determine whether the item will update in the inventory.
      * If this returns false, it will not update the item in the menu, but it will execute the code.
      *
-     * @param   value
-     *          The value assigned to this item
-     *
-     * @param   item
-     *          The item
-     *
-     * @param   onSwitchTo
-     *          What happens on switch to this item. Returns true if it should update, false if not.
-     *
+     * @param value      The value assigned to this item
+     * @param item       The item
+     * @param onSwitchTo What happens on switch to this item. Returns true if it should update, false if not.
      * @return the instance of this class
      */
     public SliderItem add(int value, Item item, Predicate<MenuClickEvent> onSwitchTo) {

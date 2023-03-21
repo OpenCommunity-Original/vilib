@@ -52,6 +52,7 @@ public class Configuration {
     public void reload() {
         files.put("config", YamlConfiguration.loadConfiguration(new File(plugin.getDataFolder() + "/config.yml")));
     }
+
     /**
      * Gets a file
      *

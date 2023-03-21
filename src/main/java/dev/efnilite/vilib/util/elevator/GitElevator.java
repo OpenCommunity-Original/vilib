@@ -36,17 +36,10 @@ public class GitElevator {
     /**
      * Constructor of this Elevator. Automatically checks for updates on creation.
      *
-     * @param   plugin
-     *          The plugin. Used to get the current version.
-     *
-     * @param   comparator
-     *          The comparator type used for version checking.
-     *
-     * @param   repo
-     *          The repo name including the author, e.g. Efnilite/vilib
-     *
-     * @param   downloadIfOutdated
-     *          Whether the Elevator should download a new version if the current is outdated.
+     * @param plugin             The plugin. Used to get the current version.
+     * @param comparator         The comparator type used for version checking.
+     * @param repo               The repo name including the author, e.g. Efnilite/vilib
+     * @param downloadIfOutdated Whether the Elevator should download a new version if the current is outdated.
      */
     public GitElevator(String repo, ViPlugin plugin, VersionComparator comparator, boolean downloadIfOutdated) {
         this.plugin = plugin;
@@ -95,15 +88,11 @@ public class GitElevator {
      * Warning: using this on start-up will result in many errors in class-loading semantics, etc.
      * Advised to be used on disable.
      *
-     * @param   async
-     *          Whether this task should be run async. Warning: when this is used on disable, async tasks can't be registered. Use true in this case.
+     * @param async Whether this task should be run async. Warning: when this is used on disable, async tasks can't be registered. Use true in this case.
      */
     public void elevate(boolean async) {
         if (async) {
-            Task.create(plugin)
-                    .async()
-                    .execute(this::_update)
-                    .run();
+            Task.create(plugin).async().execute(this::_update).run();
         } else {
             _update();
         }

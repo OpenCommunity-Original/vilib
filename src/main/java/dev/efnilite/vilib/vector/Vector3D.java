@@ -35,9 +35,7 @@ public class Vector3D implements Serializable {
     /**
      * Gets a Vector3D from a Bukkit vector
      *
-     * @param   vector
-     *          The Bukkit vector to be converted
-     *
+     * @param vector The Bukkit vector to be converted
      * @return a new Vector3D
      */
     @NotNull
@@ -48,9 +46,7 @@ public class Vector3D implements Serializable {
     /**
      * Adds another vector to this one by adding all coordinates one by one.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -64,15 +60,9 @@ public class Vector3D implements Serializable {
     /**
      * Adds values to the current coordinates.
      *
-     * @param   x
-     *          The x value.
-     *
-     * @param   y
-     *          The y value.
-     *
-     * @param   z
-     *          The z value.
-     *
+     * @param x The x value.
+     * @param y The y value.
+     * @param z The z value.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -86,9 +76,7 @@ public class Vector3D implements Serializable {
     /**
      * Multiplies all coordinates by the same modifier.
      *
-     * @param   modifier
-     *          The modifier which all coordinates will be multiplied by.
-     *
+     * @param modifier The modifier which all coordinates will be multiplied by.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -102,15 +90,9 @@ public class Vector3D implements Serializable {
     /**
      * Multiplies all coordinates by a different modifier, unique to every coordinate.
      *
-     * @param   xMod
-     *          The modifier of the x-coordinate.
-     *
-     * @param   yMod
-     *          The modifier of the y-coordinate.
-     *
-     * @param   zMod
-     *          The modifier of the z-coordinate.
-     *
+     * @param xMod The modifier of the x-coordinate.
+     * @param yMod The modifier of the y-coordinate.
+     * @param zMod The modifier of the z-coordinate.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -124,9 +106,7 @@ public class Vector3D implements Serializable {
     /**
      * Subtracts another vector from this one by subtracting all coordinates one by one.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -140,9 +120,7 @@ public class Vector3D implements Serializable {
     /**
      * Gets the distance to another vector.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the distance between the two vectors. Always positive.
      */
     public double distanceTo(Vector3D other) {
@@ -156,14 +134,12 @@ public class Vector3D implements Serializable {
      * Rotates this vector a specific amount of degrees around the x-axis.
      * Clockwise is negative and counterclockwise is positive.
      *
-     * @param   deg
-     *          The angle in degrees.
-     *
+     * @param deg The angle in degrees.
      * @return the rotated vector
      */
     @NotNull
     public Vector3D rotateX(int deg) {
-        double rad =  Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
+        double rad = Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
         double rotatedY = (Math.cos(rad) * y) - (Math.sin(rad) * z);
         double rotatedZ = (Math.sin(rad) * y) + (Math.cos(rad) * z);
 
@@ -176,14 +152,12 @@ public class Vector3D implements Serializable {
      * Rotates this vector a specific amount of degrees around the y-axis.
      * Clockwise is negative and counterclockwise is positive.
      *
-     * @param   deg
-     *          The angle in degrees.
-     *
+     * @param deg The angle in degrees.
      * @return the rotated vector
      */
     @NotNull
     public Vector3D rotateY(int deg) {
-        double rad =  Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
+        double rad = Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
         double rotatedX = (Math.cos(rad) * x) - (Math.sin(rad) * z);
         double rotatedZ = (Math.sin(rad) * x) + (Math.cos(rad) * z);
 
@@ -196,14 +170,12 @@ public class Vector3D implements Serializable {
      * Rotates this vector a specific amount of degrees around the z-axis.
      * Clockwise is negative and counterclockwise is positive.
      *
-     * @param   deg
-     *          The angle in degrees.
-     *
+     * @param deg The angle in degrees.
      * @return the rotated vector
      */
     @NotNull
     public Vector3D rotateZ(int deg) {
-        double rad =  Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
+        double rad = Math.toRadians(deg * -1); // * -1 is required to follow clockwise rotation = negative and other way around, not sure why
         double rotatedX = (Math.cos(rad) * x) - (Math.sin(rad) * y);
         double rotatedY = (Math.sin(rad) * x) + (Math.cos(rad) * y);
 
@@ -238,9 +210,7 @@ public class Vector3D implements Serializable {
     /**
      * Gets the current angle in degrees between this vector and the provided vector instance.
      *
-     * @param   other
-     *          The other vector
-     *
+     * @param other The other vector
      * @return the angle in degrees to the other vector
      */
     public double angle(Vector3D other) {
@@ -257,9 +227,7 @@ public class Vector3D implements Serializable {
     /**
      * Turns this Vector3D instance into a Bukkit Location.
      *
-     * @param   world
-     *          The world in which this location is
-     *
+     * @param world The world in which this location is
      * @return the Location instance with the same coordinates
      */
     @NotNull

@@ -20,18 +20,14 @@ public abstract class MenuItem {
     /**
      * Prevent shift clicking from causing problems on inventory close
      */
-    private static final ClickType[] DEFAULT_TYPES = new ClickType[] {
-            ClickType.LEFT, ClickType.RIGHT, ClickType.MIDDLE
-    };
+    private static final ClickType[] DEFAULT_TYPES = new ClickType[]{ClickType.LEFT, ClickType.RIGHT, ClickType.MIDDLE};
 
     protected Map<ClickType, Consumer<MenuClickEvent>> clickFunctions = new HashMap<>();
 
     /**
      * Set the function on click
      *
-     * @param   consumer
-     *          Useful values which are gathered in the click e vent
-     *
+     * @param consumer Useful values which are gathered in the click e vent
      * @return the instance of this class
      */
     public MenuItem click(Consumer<MenuClickEvent> consumer, ClickType... clickType) {
@@ -49,7 +45,7 @@ public abstract class MenuItem {
 
     public void handleClick(Menu menu, InventoryClickEvent event, ClickType clickType) {
         Consumer<MenuClickEvent> consumer = clickFunctions.get(clickType);
-        if (consumer == null)  {
+        if (consumer == null) {
             return;
         }
         consumer.accept(new MenuClickEvent(event.getSlot(), menu, this, event));

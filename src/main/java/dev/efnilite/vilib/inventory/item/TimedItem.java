@@ -38,9 +38,7 @@ public class TimedItem extends MenuItem {
     /**
      * Sets the amount of ticks this item will stay in view for.
      *
-     * @param   ticks
-     *          The amount of ticks
-     *
+     * @param ticks The amount of ticks
      * @return the instance of the class
      */
     public TimedItem stay(int ticks) {
@@ -64,9 +62,7 @@ public class TimedItem extends MenuItem {
             }
         };
 
-        task = Task.create(ViMain.getPlugin())
-                .delay(timeStay)
-                .execute(runnable);
+        task = Task.create(ViMain.getPlugin()).delay(timeStay).execute(runnable);
         task.run();
 
         return item.build();

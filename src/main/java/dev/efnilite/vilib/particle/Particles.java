@@ -18,12 +18,8 @@ public class Particles {
      * Draws particles.
      * Uses default Bukkit World methods to spawn particles using {@link ParticleData}
      *
-     *
-     * @param   at
-     *          The location of the particles
-     *
-     * @param   data
-     *          The particle data
+     * @param at   The location of the particles
+     * @param data The particle data
      */
     public static <T> void draw(Location at, @NotNull ParticleData<T> data) {
         World world = at.getWorld();
@@ -107,7 +103,7 @@ public class Particles {
      * <p>
      * First it finds the max and min locations, then it calculates the amount of particles based on param distanceBetween
      * After that it gets the 3D distances (x, y and z) between the max and min points (delta X / amount of particles).
-     *
+     * <p>
      * Then it loops the amount of times particles will spawn and in every loop removes delta X,
      * delta Y and delta Z from the max location.
      * </p><p>
@@ -119,17 +115,10 @@ public class Particles {
      * particles need to be spawned.
      * </p>
      *
-     * @param   one
-     *          The location from where the tower shoots (always shoot variable)
-     *
-     * @param   two
-     *          The location of the entity
-     *
-     * @param   data
-     *          The particle data
-     *
-     * @param   distanceBetween
-     *          The distance between particles in blocks
+     * @param one             The location from where the tower shoots (always shoot variable)
+     * @param two             The location of the entity
+     * @param data            The particle data
+     * @param distanceBetween The distance between particles in blocks
      */
     public static <T> void line(Location one, Location two, ParticleData<T> data, double distanceBetween) {
         World world = one.getWorld();
@@ -140,14 +129,11 @@ public class Particles {
         Vector p1 = one.toVector();
         Vector p2 = two.toVector();
         Vector vec = p2.clone().subtract(p1).normalize().multiply(distanceBetween);
-        world.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(),
-                data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
-        world.spawnParticle(data.getType(), p2.getX(), p2.getY(), p2.getZ(), data.getSize(),
-                data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+        world.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+        world.spawnParticle(data.getType(), p2.getX(), p2.getY(), p2.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
         double length = 0;
         for (; length < dist; p1.add(vec)) {
-            world.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(),
-                    data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+            world.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
             length += distanceBetween;
         }
     }
@@ -156,17 +142,10 @@ public class Particles {
      * Creates a box of particles
      * Calculates the min point and then adds all the dimensions to each other point to get the locations of all the points
      *
-     * @param   box
-     *          The box which the particles will go around
-     *
-     * @param   world
-     *          The world
-     *
-     * @param   data
-     *          The particle data
-     *
-     * @param   distanceBetween
-     *          The distance between particles
+     * @param box             The box which the particles will go around
+     * @param world           The world
+     * @param data            The particle data
+     * @param distanceBetween The distance between particles
      */
     public static <T> void box(BoundingBox box, @NotNull World world, ParticleData<T> data, Player player, double distanceBetween) {
         Location point1 = box.getMin().toLocation(world);
@@ -209,17 +188,10 @@ public class Particles {
      * Creates a box of particles.
      * Calculates the min point and then adds all the dimensions to each other point to get the locations of all the points
      *
-     * @param   box
-     *          The box which the particles will go around
-     *
-     * @param   world
-     *          The world
-     *
-     * @param   data
-     *          The particle data
-     *
-     * @param   distanceBetween
-     *          The distance between particles
+     * @param box             The box which the particles will go around
+     * @param world           The world
+     * @param data            The particle data
+     * @param distanceBetween The distance between particles
      */
     public static <T> void box(BoundingBox box, @NotNull World world, ParticleData<T> data, double distanceBetween) {
         Location point1 = box.getMin().toLocation(world);
@@ -269,14 +241,11 @@ public class Particles {
         Vector p1 = one.toVector();
         Vector p2 = two.toVector();
         Vector vec = p2.clone().subtract(p1).normalize().multiply(distanceBetween);
-        player.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(),
-                data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
-        player.spawnParticle(data.getType(), p2.getX(), p2.getY(), p2.getZ(), data.getSize(),
-                data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+        player.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+        player.spawnParticle(data.getType(), p2.getX(), p2.getY(), p2.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
         double length = 0;
         for (; length < dist; p1.add(vec)) {
-            player.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(),
-                    data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
+            player.spawnParticle(data.getType(), p1.getX(), p1.getY(), p1.getZ(), data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
             length += distanceBetween;
         }
     }
@@ -284,17 +253,10 @@ public class Particles {
     /**
      * Creates a circle
      *
-     * @param   location
-     *          The center
-     *
-     * @param   data
-     *          The particle data
-     *
-     * @param   radius
-     *          The radius of the circle
-     *
-     * @param   amount
-     *          The amount of particles
+     * @param location The center
+     * @param data     The particle data
+     * @param radius   The radius of the circle
+     * @param amount   The amount of particles
      */
     public static <T> void circle(Location location, ParticleData<T> data, int radius, int amount) {
         World world = location.getWorld();

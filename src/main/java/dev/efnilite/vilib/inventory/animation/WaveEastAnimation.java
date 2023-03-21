@@ -2,17 +2,17 @@ package dev.efnilite.vilib.inventory.animation;
 
 /**
  * An animation which waves towards the east.
- *
+ * <p>
  * ---------   x--------   xx-------   xxx------
  * --------- > x-------- > xx------- > xxx------ > etc.
  * ---------   x--------   xx-------   xxx------
- *
+ * <p>
  * Expected duration: 20 ticks
  * Expected time: 1000ms
  *
  * @author Efnilite
  */
-public final  class WaveEastAnimation extends MenuAnimation {
+public final class WaveEastAnimation extends MenuAnimation {
 
     @Override
     public void init(int rows) {

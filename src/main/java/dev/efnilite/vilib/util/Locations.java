@@ -12,13 +12,9 @@ public class Locations {
     /**
      * Gets the max of the locations
      *
-     * @param   pos1
-     *          The first location
-     *
-     * @param   pos2
-     *          The second location
-     *
-     * @return  the max values of the locations
+     * @param pos1 The first location
+     * @param pos2 The second location
+     * @return the max values of the locations
      */
     public static Location max(Location pos1, Location pos2) {
         World world = pos1.getWorld() == null ? pos2.getWorld() : pos1.getWorld();
@@ -28,13 +24,9 @@ public class Locations {
     /**
      * Gets the min of the locations
      *
-     * @param   pos1
-     *          The first location
-     *
-     * @param   pos2
-     *          The second location
-     *
-     * @return  the min values of the locations
+     * @param pos1 The first location
+     * @param pos2 The second location
+     * @return the min values of the locations
      */
     public static Location min(Location pos1, Location pos2) {
         World world = pos1.getWorld() == null ? pos2.getWorld() : pos1.getWorld();
@@ -44,9 +36,7 @@ public class Locations {
     /**
      * Creates a string version of a Location.
      *
-     * @param   location
-     *          The location
-     *
+     * @param location The location
      * @return string version
      */
     public static String toString(Location location, boolean formatted) {
@@ -60,16 +50,11 @@ public class Locations {
     /**
      * Get a location from a string
      *
-     * @param   string
-     *          The string
-     *
+     * @param string The string
      * @return the location from the string
      */
     public static Location parseLocation(String string) {
-        String[] values = string.replaceAll("[()]", "")
-                .replace(", ", " ")
-                .replace(",", " ")
-                .split(" ");
+        String[] values = string.replaceAll("[()]", "").replace(", ", " ").replace(",", " ").split(" ");
 
         World world = Bukkit.getWorld(values[3]);
 

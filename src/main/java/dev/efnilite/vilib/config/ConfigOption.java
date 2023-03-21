@@ -9,8 +9,7 @@ import java.util.regex.Pattern;
 /**
  * Class for config options
  *
- * @param   <Type>
- *          The type of the config option: double, integer, etc.
+ * @param <Type> The type of the config option: double, integer, etc.
  */
 @SuppressWarnings("unchecked")
 public class ConfigOption<Type> {
@@ -22,14 +21,12 @@ public class ConfigOption<Type> {
         try {
             value = (Type) config.get(path);
         } catch (ClassCastException ex) {
-            ViMain.logging().stack("Incompatible types in config option '" + path + "': " + ex.getMessage(),
-                    "check if you have entered the correct type of data for path "+ path, ex);
+            ViMain.logging().stack("Incompatible types in config option '" + path + "': " + ex.getMessage(), "check if you have entered the correct type of data for path " + path, ex);
             return;
         }
 
         if (value == null) {
-            ViMain.logging().stack("No value found for option " + path,
-                    "check if you have entered anything for path " + path);
+            ViMain.logging().stack("No value found for option " + path, "check if you have entered anything for path " + path);
         } else if (regex != null) {
             this.regex = Pattern.compile(regex);
             Matcher matcher = this.regex.matcher(String.valueOf(value));
@@ -47,8 +44,7 @@ public class ConfigOption<Type> {
         this.value = value;
 
         if (value == null) {
-            ViMain.logging().stack("No value found for unknown option",
-                    "check if you have entered everything correctly");
+            ViMain.logging().stack("No value found for unknown option", "check if you have entered everything correctly");
         }
     }
 

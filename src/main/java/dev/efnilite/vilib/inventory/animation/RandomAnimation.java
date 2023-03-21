@@ -9,11 +9,11 @@ import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * An animation which picks random slots to be set
- *
+ * <p>
  * ---------   -----x---   -----x---   -xx--x---
  * --------- > x-------- > x--x---x- > x--x---x- > etc.
  * ---------   ----x----   -x--x----   -x--x--x-
- *
+ * <p>
  * Expected duration: 18 ticks
  * Expected time: 900ms
  *

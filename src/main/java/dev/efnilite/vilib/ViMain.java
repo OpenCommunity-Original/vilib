@@ -23,12 +23,12 @@ public class ViMain extends ViPlugin {
     }
 
     @Override
-    public void disable() { }
+    public void disable() {
+    }
 
     @Override
     public @Nullable GitElevator getElevator() {
-        return new GitElevator("Efnilite/vilib", this, VersionComparator.FROM_SEMANTIC,
-                configuration.getFile("config").getBoolean("auto-updater"));
+        return new GitElevator("Efnilite/vilib", this, VersionComparator.FROM_SEMANTIC, configuration.getFile("config").getBoolean("auto-updater"));
     }
 
     /**

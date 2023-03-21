@@ -33,8 +33,7 @@ public abstract class MenuAnimation {
      * Set how many ticks it will take to execute one step.
      * By default 1.
      *
-     * @param   ticksPerStep
-     *          The ticks required to perform one step
+     * @param ticksPerStep The ticks required to perform one step
      */
     protected void ticksPerStep(int ticksPerStep) {
         if (ticksPerStep < 1) {
@@ -47,11 +46,8 @@ public abstract class MenuAnimation {
      * Add which slots will be set during which tick
      * If two of the same keys are registered they will be added together.
      *
-     * @param   tick
-     *          The tick. This must start from 0 and increment by one each time.
-     *
-     * @param   slots
-     *          The slots which will be set during this time period
+     * @param tick  The tick. This must start from 0 and increment by one each time.
+     * @param slots The slots which will be set during this time period
      */
     protected void add(int tick, Integer... slots) {
         this.add(tick, Arrays.asList(slots));
@@ -61,11 +57,8 @@ public abstract class MenuAnimation {
      * Add which slots will be set during which tick.
      * If two of the same keys are registered they will be added together.
      *
-     * @param   tick
-     *          The tick. This must start from 0 and increment by one each time.
-     *
-     * @param   slots
-     *          The slots which will be set during this time period
+     * @param tick  The tick. This must start from 0 and increment by one each time.
+     * @param slots The slots which will be set during this time period
      */
     protected void add(int tick, List<Integer> slots) {
         if (steps.containsKey(tick)) {
@@ -80,8 +73,7 @@ public abstract class MenuAnimation {
     /**
      * Initializes this animation, settings all slots
      *
-     * @param   rows
-     *          The amount of rows the eventual inventory will have.
+     * @param rows The amount of rows the eventual inventory will have.
      */
     public abstract void init(int rows);
 
@@ -91,25 +83,22 @@ public abstract class MenuAnimation {
     public void run(Menu menu) {
         Map<Integer, MenuItem> items = menu.getItems();
         Inventory top = menu.getPlayer().getOpenInventory().getTopInventory();
-        task = Task.create(ViMain.getPlugin())
-                .execute(() -> {
-                    List<Integer> slots = steps.get(currentStep);
-                    if (slots == null || slots.isEmpty()) {
-                        stop();
-                        return;
-                    }
+        task = Task.create(ViMain.getPlugin()).execute(() -> {
+            List<Integer> slots = steps.get(currentStep);
+            if (slots == null || slots.isEmpty()) {
+                stop();
+                return;
+            }
 
-                    for (int slot : slots) {
-                        MenuItem item = items.get(slot);
-                        if (item != null) {
-                            top.setItem(slot, item.build());
-                        }
-                    }
+            for (int slot : slots) {
+                MenuItem item = items.get(slot);
+                if (item != null) {
+                    top.setItem(slot, item.build());
+                }
+            }
 
-                    currentStep++;
-                })
-                .repeat(ticksPerStep)
-                .run();
+            currentStep++;
+        }).repeat(ticksPerStep).run();
     }
 
     public void stop() {
@@ -120,12 +109,8 @@ public abstract class MenuAnimation {
      * Gets all slots from a beginning slot to delta amount extra.
      * The default direction is always right (east). Turn it left by entering a negative delta.
      *
-     * @param   begin
-     *          The beginning slot (inclusive)
-     *
-     * @param   delta
-     *          The difference between the two, where the last slot is excluded. A delta of 9 will result in 9 elements, but only go up to slot 8.
-     *
+     * @param begin The beginning slot (inclusive)
+     * @param delta The difference between the two, where the last slot is excluded. A delta of 9 will result in 9 elements, but only go up to slot 8.
      * @return the slots between begin and delta amount away
      */
     protected List<Integer> getHorizontal(int begin, int delta) {
@@ -142,12 +127,8 @@ public abstract class MenuAnimation {
      * Gathers slots vertically down from the beginning slot.
      * The default direction is always down (south). Turn it left by entering a negative delta.
      *
-     * @param   begin
-     *          The beginning slot
-     *
-     * @param   delta
-     *          How many rows the vertical selection goes down
-     *
+     * @param begin The beginning slot
+     * @param delta How many rows the vertical selection goes down
      * @return the vertical slots between the beginning slots
      */
     protected List<Integer> getVertical(int begin, int delta) {

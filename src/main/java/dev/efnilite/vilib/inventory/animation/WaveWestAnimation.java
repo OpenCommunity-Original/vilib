@@ -2,11 +2,11 @@ package dev.efnilite.vilib.inventory.animation;
 
 /**
  * An animation which waves towards the west.
- *
+ * <p>
  * ---------   --------x   -------xx   ------xxx
  * --------- > --------x > -------xx > ------xxx > etc.
  * ---------   --------x   -------xx   ------xxx
- *
+ * <p>
  * Expected duration: 20 ticks
  * Expected time: 1000ms
  *

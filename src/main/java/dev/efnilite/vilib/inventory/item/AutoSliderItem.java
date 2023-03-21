@@ -35,8 +35,7 @@ public class AutoSliderItem extends MenuItem {
     /**
      * The constructor.
      *
-     * @param   menu
-     *          The menu that this item will be displayed in.
+     * @param menu The menu that this item will be displayed in.
      */
     public AutoSliderItem(int slot, Menu menu) {
         this.slot = slot;
@@ -47,9 +46,7 @@ public class AutoSliderItem extends MenuItem {
      * Sets the initial viewing index.
      * If you set up 2 items, with index 0 and 1, you can specify which will be viewed first.
      *
-     * @param   initial
-     *          The initial viewing index
-     *
+     * @param initial The initial viewing index
      * @return the instance of this class
      */
     public AutoSliderItem initial(int initial) {
@@ -60,9 +57,7 @@ public class AutoSliderItem extends MenuItem {
     /**
      * Sets the cooldown between sliding to the next item.
      *
-     * @param   ticks
-     *          The amount of ticks until the transition occurs.
-     *
+     * @param ticks The amount of ticks until the transition occurs.
      * @return the instance of this class
      */
     public AutoSliderItem cooldown(int ticks) {
@@ -75,15 +70,9 @@ public class AutoSliderItem extends MenuItem {
      * The Function will determine whether the item will update in the inventory.
      * If this returns false, it will not update the item in the menu, but it will execute the code.
      *
-     * @param   value
-     *          The value assigned to this item
-     *
-     * @param   item
-     *          The item
-     *
-     * @param   onClick
-     *          What happens on switch to this item. Returns true if it should update, false if not.
-     *
+     * @param value   The value assigned to this item
+     * @param item    The item
+     * @param onClick What happens on switch to this item. Returns true if it should update, false if not.
      * @return the instance of this class
      */
     public AutoSliderItem add(int value, Item item, Consumer<MenuClickEvent> onClick) {
@@ -125,10 +114,7 @@ public class AutoSliderItem extends MenuItem {
                 }
             };
 
-            Task task = Task.create(ViMain.getPlugin())
-                    .delay(cooldown)
-                    .repeat(cooldown)
-                    .execute(runnable);
+            Task task = Task.create(ViMain.getPlugin()).delay(cooldown).repeat(cooldown).execute(runnable);
             task.run();
         }
 

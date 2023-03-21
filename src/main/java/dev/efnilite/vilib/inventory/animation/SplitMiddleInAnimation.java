@@ -2,11 +2,11 @@ package dev.efnilite.vilib.inventory.animation;
 
 /**
  * An animation which goes from the sides to the middle
- *
+ * <p>
  * ---------   x-------x   xx-----xx   xxx---xxx
  * --------- > x-------x > xx-----xx > xxx---xxx > etc.
  * ---------   x-------x   xx-----xx   xxx---xxx
- *
+ * <p>
  * Expected duration: 15 ticks
  * Expected time: 750ms
  *

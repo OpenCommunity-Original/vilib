@@ -37,8 +37,7 @@ public class ObjectSerializer {
             input.close();
             return (T) input.readObject();
         } catch (Throwable throwable) {
-            ViMain.logging().stack("Error while trying to convert an object from base 64!",
-                    "delete the inventories folder and restart the server", throwable);
+            ViMain.logging().stack("Error while trying to convert an object from base 64!", "delete the inventories folder and restart the server", throwable);
             return null;
         }
     }

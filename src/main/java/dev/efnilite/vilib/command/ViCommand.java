@@ -34,15 +34,9 @@ public abstract class ViCommand implements CommandExecutor, TabCompleter {
     /**
      * Checks the cooldown
      *
-     * @param   sender
-     *          The CommandSender which may have a cooldown
-     *
-     * @param   arg
-     *          The argument to which this cooldown applies
-     *
-     * @param   cooldownMs
-     *          The cooldown in ms
-     *
+     * @param sender     The CommandSender which may have a cooldown
+     * @param arg        The argument to which this cooldown applies
+     * @param cooldownMs The cooldown in ms
      * @return false if the cooldown is not over yet, true if it has been.
      */
     protected boolean cooldown(CommandSender sender, String arg, long cooldownMs) {
@@ -90,45 +84,30 @@ public abstract class ViCommand implements CommandExecutor, TabCompleter {
     /**
      * Gets completions in relation to what the user has already typed
      *
-     * @param   typed
-     *          What the player has typed so far
-     *
-     * @param   possible
-     *          The possible completions
-     *
+     * @param typed    What the player has typed so far
+     * @param possible The possible completions
      * @return the updated possible completions
      */
     protected List<String> completions(String typed, List<String> possible) {
-        return possible.stream()
-                .filter(option -> option.toLowerCase().contains(typed))
-                .collect(Collectors.toList());
+        return possible.stream().filter(option -> option.toLowerCase().contains(typed)).collect(Collectors.toList());
     }
 
     /**
      * Gets completions in relation to what the user has already typed
      *
-     * @param   typed
-     *          What the player has typed so far
-     *
-     * @param   possible
-     *          The possible completions
-     *
+     * @param typed    What the player has typed so far
+     * @param possible The possible completions
      * @return the updated possible completions
      */
     protected List<String> completions(String typed, String... possible) {
-        return Arrays.stream(possible)
-                .filter(option -> option.toLowerCase().contains(typed))
-                .collect(Collectors.toList());
+        return Arrays.stream(possible).filter(option -> option.toLowerCase().contains(typed)).collect(Collectors.toList());
     }
 
     /**
      * Registers a command under plugin.yml
      *
-     * @param   name
-     *          The name of this command in plugin.yml
-     *
-     * @param   wrapper
-     *          The command that's going to be registered
+     * @param name    The name of this command in plugin.yml
+     * @param wrapper The command that's going to be registered
      */
     public static void register(String name, ViCommand wrapper) {
         PluginCommand command = Bukkit.getPluginCommand(name);

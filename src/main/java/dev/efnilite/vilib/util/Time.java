@@ -39,9 +39,7 @@ public class Time {
     /**
      * Converts an amount of seconds to millis
      *
-     * @param   secs
-     *          The second count
-     *
+     * @param secs The second count
      * @return the second count to millis
      */
     public static long toMillis(long secs) {
@@ -51,8 +49,7 @@ public class Time {
     /**
      * Start the timer.
      *
-     * @param   key
-     *          The name of the operation which will be timed. These need to be unique!
+     * @param key The name of the operation which will be timed. These need to be unique!
      */
     public static void timerStart(String key) {
         timings.put(key, System.currentTimeMillis());
@@ -62,9 +59,7 @@ public class Time {
     /**
      * End the timer and get the time between start and finish in ms.
      *
-     * @param   key
-     *          The name of the operation.
-     *
+     * @param key The name of the operation.
      * @return the time it took between starting and finishing.
      */
     public static long timerEnd(String key) {

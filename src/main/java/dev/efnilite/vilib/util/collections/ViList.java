@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 // todo finish
 public class ViList<T> extends ArrayList<T> {
     private List<T> list;
+
     public ViList(@NotNull Collection<? extends T> collection) {
         super(collection);
 
@@ -17,9 +18,7 @@ public class ViList<T> extends ArrayList<T> {
     }
 
     public ViList<T> sort() {
-        list = list.stream()
-                .sorted()
-                .collect(Collectors.toList());
+        list = list.stream().sorted().collect(Collectors.toList());
         return this;
     }
 

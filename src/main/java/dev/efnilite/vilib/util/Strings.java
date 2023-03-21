@@ -12,19 +12,13 @@ import java.util.stream.Collectors;
 public class Strings {
 
     private static final MiniMessage miniMessage = MiniMessage.miniMessage();
-    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder()
-            .extractUrls()
-            .hexColors()
-            .character(LegacyComponentSerializer.SECTION_CHAR)
-            .useUnusualXRepeatedCharacterHexFormat() // spigot makes me sad :(
+    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().extractUrls().hexColors().character(LegacyComponentSerializer.SECTION_CHAR).useUnusualXRepeatedCharacterHexFormat() // spigot makes me sad :(
             .build();
 
     /**
      * Colours a list of strings using {@link MiniMessage} and {@link LegacyComponentSerializer}
      *
-     * @param   strings
-     *          The list of strings
-     *
+     * @param strings The list of strings
      * @return the coloured list of strings
      */
     public static List<String> colour(@NotNull List<String> strings) {
@@ -34,9 +28,7 @@ public class Strings {
     /**
      * Colours an array of strings using {@link MiniMessage} and {@link LegacyComponentSerializer}
      *
-     * @param   strings
-     *          The array of strings
-     *
+     * @param strings The array of strings
      * @return the array of strings, but coloured
      */
     @NotNull
@@ -55,9 +47,7 @@ public class Strings {
     /**
      * Colours a string using {@link MiniMessage} and {@link LegacyComponentSerializer}
      *
-     * @param   string
-     *          The string
-     *
+     * @param string The string
      * @return the coloured string
      */
     @NotNull
@@ -70,12 +60,8 @@ public class Strings {
     /**
      * Gets the closest matching string
      *
-     * @param   source
-     *          The source string
-     *
-     * @param   strings
-     *          Strings which will be compared to this string
-     *
+     * @param source  The source string
+     * @param strings Strings which will be compared to this string
      * @return the closest matching string from parameter strings
      */
     public static String getClosestMatching(String source, List<String> strings) {
@@ -95,12 +81,8 @@ public class Strings {
      * Gets the levenshtein distance between two strings
      * Source: <a href="https://www.stephenenright.com/java-levenshtein-distance">https://www.stephenenright.com/java-levenshtein-distance</a>
      *
-     * @param   source
-     *          The source string
-     *
-     * @param   other
-     *          The other string
-     *
+     * @param source The source string
+     * @param other  The other string
      * @return the distance required
      */
     public static int getLevenshteinDistance(String source, String other) {

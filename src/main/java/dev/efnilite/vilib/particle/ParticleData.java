@@ -34,26 +34,13 @@ public class ParticleData<Data> {
     /**
      * Main constructor for Particle Data.
      *
-     * @param   type
-     *          The type of particle
-     *
-     * @param   data
-     *          The possible data associated with this particle (colour, etc.)
-     *
-     * @param   size
-     *          The size of the particle
-     *
-     * @param   speed
-     *          The speed of the particle
-     *
-     * @param   offsetX
-     *          The max x offset in moving
-     *
-     * @param   offsetY
-     *          The max y offset in moving
-     *
-     * @param   offsetZ
-     *          The max z offset in moving
+     * @param type    The type of particle
+     * @param data    The possible data associated with this particle (colour, etc.)
+     * @param size    The size of the particle
+     * @param speed   The speed of the particle
+     * @param offsetX The max x offset in moving
+     * @param offsetY The max y offset in moving
+     * @param offsetZ The max z offset in moving
      */
     public ParticleData(Particle type, @Nullable Data data, int size, double speed, double offsetX, double offsetY, double offsetZ) {
         this.data = data;

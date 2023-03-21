@@ -8,12 +8,8 @@ public class Reflection {
     /**
      * Creates a new instance of a class using a constructor without arguments
      *
-     * @param   cls
-     *          The class
-     *
-     * @param   <T>
-     *          The return value
-     *
+     * @param cls The class
+     * @param <T> The return value
      * @return a new instance of the class
      */
     public static <T> T newInstance(Class<?> cls) {
@@ -35,7 +31,8 @@ public class Reflection {
             }
 
             return (T) cls.getDeclaredConstructor(classes).newInstance(args);
-        } catch (InstantiationException | IllegalAccessException | InvocationTargetException | NoSuchMethodException ex) {
+        } catch (InstantiationException | IllegalAccessException | InvocationTargetException |
+                 NoSuchMethodException ex) {
             ex.printStackTrace();
         }
         return null;

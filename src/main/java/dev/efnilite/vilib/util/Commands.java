@@ -49,12 +49,8 @@ public class Commands {
     /**
      * Adds a command to the Command Map
      *
-     * @param   alias
-     *          The alias
-     *
-     * @param   command
-     *          The command instance
-     *
+     * @param alias   The alias
+     * @param command The command instance
      * @return the command that was added
      */
     public static Command add(@NotNull String alias, @NotNull Command command) {
@@ -73,8 +69,7 @@ public class Commands {
 
             return prev1 == null ? prev2 : prev1;
         } catch (NoSuchFieldException ex) {
-            ViMain.logging().stack("knownCommands field not found for registry",
-                    "update your server or switch to a supported server platform", ex);
+            ViMain.logging().stack("knownCommands field not found for registry", "update your server or switch to a supported server platform", ex);
             return null;
         } catch (Throwable throwable) {
             throwable.printStackTrace();
@@ -87,8 +82,7 @@ public class Commands {
     /**
      * Unregister a command from the map.
      *
-     * @param   command
-     *          The command
+     * @param command The command
      */
     public static void unregister(@NotNull Command command) {
         CommandMap map = retrieveMap();

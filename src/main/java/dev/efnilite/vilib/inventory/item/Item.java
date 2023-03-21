@@ -1,5 +1,8 @@
 package dev.efnilite.vilib.inventory.item;
 
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.MultimapBuilder;
 import dev.efnilite.vilib.util.Strings;
 import dev.efnilite.vilib.util.Version;
 import org.bukkit.Bukkit;
@@ -36,17 +39,14 @@ public class Item extends MenuItem {
     private ItemMeta meta;
     private Material material;
     private List<String> lore = new ArrayList<>();
-    private Map<Attribute, AttributeModifier> attributes = new HashMap<>();
+    private Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**
      * Creates a new instance
      *
-     * @param   material
-     *          The material
-     *
-     * @param   name
-     *          The name of the item
+     * @param material The material
+     * @param name     The name of the item
      */
     public Item(Material material, String name) {
         this(material, 1, name);
@@ -55,14 +55,9 @@ public class Item extends MenuItem {
     /**
      * Creates a new instance
      *
-     * @param   material
-     *          The material
-     *
-     * @param   amount
-     *          The amount of the item
-     *
-     * @param   name
-     *          The name of the item
+     * @param material The material
+     * @param amount   The amount of the item
+     * @param name     The name of the item
      */
     public Item(Material material, int amount, String name) {
         this.amount = amount;
@@ -90,7 +85,9 @@ public class Item extends MenuItem {
         }
 
         // if this item's meta cant be modified, return itemstack instance
-        if (meta == null) return item;
+        if (meta == null) {
+            return item;
+        }
 
         if (glowing) {
             meta.addEnchant(Enchantment.DURABILITY, 1, false);
@@ -106,20 +103,9 @@ public class Item extends MenuItem {
         meta.setCustomModelData(modelId);
 
         if (Version.isHigherOrEqual(Version.V1_13)) {
-            for (Attribute attribute : attributes.keySet()) {
-                if (meta.hasAttributeModifiers()) {
-                    @Nullable Collection<AttributeModifier> present = meta.getAttributeModifiers(attribute);
+            meta.setAttributeModifiers(attributes);
 
-                    if (present != null) {
-                        meta.removeAttributeModifier(attribute);
-                    }
-                }
-
-                meta.addAttributeModifier(attribute, attributes.get(attribute));
-            }
-
-            ((Damageable) meta).setDamage(
-                Math.abs(durability - material.getMaxDurability()));
+            ((Damageable) meta).setDamage(Math.abs(durability - material.getMaxDurability()));
             meta.setUnbreakable(unbreakable);
         }
 
@@ -183,10 +169,8 @@ public class Item extends MenuItem {
     /**
      * Sets the name
      *
-     * @param   name
-     *          The name
-     *
-     * @return  the instance of this class
+     * @param name The name
+     * @return the instance of this class
      */
     public Item name(String name) {
         this.name = name;
@@ -196,10 +180,8 @@ public class Item extends MenuItem {
     /**
      * Sets the ItemMeta
      *
-     * @param   meta
-     *          The meta
-     *
-     * @return  the instance of this class
+     * @param meta The meta
+     * @return the instance of this class
      */
     public Item meta(ItemMeta meta) {
         this.meta = meta;
@@ -220,9 +202,7 @@ public class Item extends MenuItem {
     /**
      * Sets the item amount
      *
-     * @param   amount
-     *          The item amount
-     *
+     * @param amount The item amount
      * @return the instance of this class
      */
     public Item amount(int amount) {
@@ -233,10 +213,8 @@ public class Item extends MenuItem {
     /**
      * Sets the type
      *
-     * @param   material
-     *          The type
-     *
-     * @return  the instance of this class
+     * @param material The type
+     * @return the instance of this class
      */
     public Item material(Material material) {
         this.material = material;
@@ -246,10 +224,8 @@ public class Item extends MenuItem {
     /**
      * Sets the lore
      *
-     * @param   lore
-     *          The lore
-     *
-     * @return  the instance of this class
+     * @param lore The lore
+     * @return the instance of this class
      */
     public Item lore(@Nullable List<String> lore) {
         if (lore == null || lore.isEmpty()) {
@@ -264,9 +240,7 @@ public class Item extends MenuItem {
     /**
      * Sets the lore
      *
-     * @param   lore
-     *          The lore
-     *
+     * @param lore The lore
      * @return the instance of this class
      */
     public Item lore(String... lore) {
@@ -276,13 +250,9 @@ public class Item extends MenuItem {
     /**
      * Enchants this item with a specific enchantment and a provided level.
      * This ignores enchantment level limit restrictions.
-     * 
-     * @param   enchantment
-     *          The enchantment instance.
-     * 
-     * @param   level
-     *          The level.
-     * 
+     *
+     * @param enchantment The enchantment instance.
+     * @param level       The level.
      * @return the instance of this class
      */
     public Item enchant(@NotNull Enchantment enchantment, int level) {
@@ -296,20 +266,14 @@ public class Item extends MenuItem {
      * Example:
      * <br>
      * <code>
-     *  item.attribute(Attribute.GENERIC_ATTACK_SPEED, -10, AttributeModifier.Operation.ADD_NUMBER)
+     * item.attribute(Attribute.GENERIC_ATTACK_SPEED, -10, AttributeModifier.Operation.ADD_NUMBER)
      * </code>
-     * @see AttributeModifier.Operation
      *
-     * @param   attribute
-     *          The attribute
-     *
-     * @param   value
-     *          The value
-     *
-     * @param   operation
-     *          The operation
-     *
+     * @param attribute The attribute
+     * @param value     The value
+     * @param operation The operation
      * @return the instance of this class
+     * @see AttributeModifier.Operation
      */
     public Item attribute(@NotNull Attribute attribute, double value, AttributeModifier.Operation operation) {
         attributes.put(attribute, new AttributeModifier(attribute.getKey().getKey(), value, operation));
@@ -320,21 +284,12 @@ public class Item extends MenuItem {
     /**
      * Adds the provided attribute to this item, with the specified value and the operation, only applying to a specific slot.
      *
-     * @see AttributeModifier.Operation
-     *
-     * @param   attribute
-     *          The attribute
-     *
-     * @param   value
-     *          The value
-     *
-     * @param   operation
-     *          The operation
-     *
-     * @param   slot
-     *          The slot
-     *
+     * @param attribute The attribute
+     * @param value     The value
+     * @param operation The operation
+     * @param slot      The slot
      * @return the instance of this class
+     * @see AttributeModifier.Operation
      */
     public Item attribute(@NotNull Attribute attribute, double value, @NotNull AttributeModifier.Operation operation, @NotNull EquipmentSlot slot) {
         attributes.put(attribute, new AttributeModifier(UUID.randomUUID(), attribute.getKey().getKey(), value, operation, slot));
@@ -345,12 +300,8 @@ public class Item extends MenuItem {
     /**
      * Adds the provided {@link AttributeModifier} to the item with {@link Attribute} used as identification.
      *
-     * @param   attribute
-     *          The attribute.
-     *
-     * @param   modifier
-     *          The modifier.
-     *
+     * @param attribute The attribute.
+     * @param modifier  The modifier.
      * @return the instance of this class
      */
     public Item attribute(@NotNull Attribute attribute, @NotNull AttributeModifier modifier) {
@@ -362,9 +313,7 @@ public class Item extends MenuItem {
     /**
      * Sets this item's model id
      *
-     * @param   modelId
-     *          The model id
-     *
+     * @param modelId The model id
      * @return the instance of this class
      */
     public Item modelId(int modelId) {
@@ -377,9 +326,7 @@ public class Item extends MenuItem {
      * Modifies the lore line by line.
      * Useful for updating items.
      *
-     * @param   function
-     *          The function. The line of lore is given, and it must return the modified version of that lore line
-     *
+     * @param function The function. The line of lore is given, and it must return the modified version of that lore line
      * @return the instance of this class
      */
     public Item modifyLore(Function<String, String> function) {
@@ -391,9 +338,7 @@ public class Item extends MenuItem {
      * Modifies the name of an item.
      * Useful for updating items.
      *
-     * @param   function
-     *          The function. The title is given, and it must return an altered version of this title.
-     *
+     * @param function The function. The title is given, and it must return an altered version of this title.
      * @return the instance of this class
      */
     public Item modifyName(Function<String, String> function) {

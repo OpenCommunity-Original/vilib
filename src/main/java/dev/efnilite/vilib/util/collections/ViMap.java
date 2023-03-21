@@ -7,27 +7,11 @@ import java.util.stream.Collectors;
 public class ViMap<K, V> extends HashMap<K, V> {
 
     public Map<K, V> sortKeys() {
-        return entrySet()
-                .stream()
-                .sorted()
-                .collect(Collectors.toMap(
-                        Entry::getKey,
-                        Entry::getValue,
-                        (a, b) -> a,
-                        LinkedHashMap::new
-                ));
+        return entrySet().stream().sorted().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> a, LinkedHashMap::new));
     }
 
     public Map<K, V> sortValues() {
-        return entrySet()
-                .stream()
-                .sorted()
-                .collect(Collectors.toMap(
-                        Entry::getKey,
-                        Entry::getValue,
-                        (a, b) -> a,
-                        LinkedHashMap::new
-                ));
+        return entrySet().stream().sorted().collect(Collectors.toMap(Entry::getKey, Entry::getValue, (a, b) -> a, LinkedHashMap::new));
     }
 
 

@@ -7,11 +7,11 @@ import java.util.List;
 
 /**
  * An animation which snakes from the top left to the middle.
- *
+ * <p>
  * ---------   x--------   x--------   x--xxxxxx
  * --------- > x-------- > x-------x > x-------x > etc.
  * ---------   xxxx-----   xxxxxxxxx   xxxxxxxxx
- *
+ * <p>
  * Expected duration: 18 ticks
  * Expected time: 900ms
  *

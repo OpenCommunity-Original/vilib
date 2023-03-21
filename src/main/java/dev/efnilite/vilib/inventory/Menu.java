@@ -9,7 +9,6 @@ import dev.efnilite.vilib.util.Numbers;
 import dev.efnilite.vilib.util.Strings;
 import dev.efnilite.vilib.util.Task;
 import dev.efnilite.vilib.util.collections.ViList;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -31,12 +30,12 @@ import java.util.*;
 public class Menu implements EventWatcher {
 
     protected boolean deactivated = false;
-    
+
     protected UUID inventoryId;
     protected Player player;
     protected Material filler = null;
     protected MenuAnimation animation = null;
-    
+
     protected final int rows;
     protected final String title;
     protected final Map<Integer, MenuItem> items = new HashMap<>();
@@ -49,16 +48,14 @@ public class Menu implements EventWatcher {
      * Prevents big boy memory usage by unregistering unused menus
      */
     static {
-        Task.create(ViMain.getPlugin())
-            .repeat(5 * 20)
-            .execute(() -> {
-                if (openMenus.keySet().size() == 0) {
-                    for (Menu menu : disabledMenus) {
-                        menu.unregisterAll();
-                    }
-                    disabledMenus.clear();
+        Task.create(ViMain.getPlugin()).repeat(5 * 20).execute(() -> {
+            if (openMenus.keySet().size() == 0) {
+                for (Menu menu : disabledMenus) {
+                    menu.unregisterAll();
                 }
-            }).run();
+                disabledMenus.clear();
+            }
+        }).run();
     }
 
     public Menu(int rows, String name) {
@@ -73,12 +70,8 @@ public class Menu implements EventWatcher {
     /**
      * Sets an item to a slot
      *
-     * @param   slot
-     *          The slot
-     *
-     * @param   item
-     *          The item
-     *
+     * @param slot The slot
+     * @param item The item
      * @return the instance of this class
      */
     public Menu item(int slot, MenuItem item) {
@@ -94,9 +87,7 @@ public class Menu implements EventWatcher {
      * Sets a specific set of rows to be distributed evenly. The items will be distributed.
      * Starts from 0 and goes up to 5.
      *
-     * @param   rows
-     *          The rows
-     *
+     * @param rows The rows
      * @return the instance of this class
      */
     public Menu distributeRowEvenly(int... rows) {
@@ -111,9 +102,9 @@ public class Menu implements EventWatcher {
 
     /**
      * Will distribute all rows evenly.
-     * @see #distributeRowEvenly(int...)
      *
      * @return the instance of this class
+     * @see #distributeRowEvenly(int...)
      */
     public Menu distributeRowsEvenly() {
         evenlyDistributedRows.addAll(Numbers.getFromZero(rows));
@@ -123,9 +114,7 @@ public class Menu implements EventWatcher {
     /**
      * Fills the background with a specific item
      *
-     * @param   filler
-     *          The background filler
-     *
+     * @param filler The background filler
      * @return the instance of this class
      */
     public Menu fillBackground(@NotNull Material filler) {
@@ -136,9 +125,7 @@ public class Menu implements EventWatcher {
     /**
      * Creates an animation on opening
      *
-     * @param   animation
-     *          The animation
-     *
+     * @param animation The animation
      * @return the instance of this class
      */
     public Menu animation(@NotNull MenuAnimation animation) {
@@ -150,13 +137,14 @@ public class Menu implements EventWatcher {
     /**
      * Updates a specific item
      *
-     * @param   slots
-     *          The slots which are to be updated
+     * @param slots The slots which are to be updated
      */
     public void updateItem(int... slots) {
         Inventory inventory = player.getOpenInventory().getTopInventory();
 
-        if (inventory.getSize() % 9 != 0) return;
+        if (inventory.getSize() % 9 != 0) {
+            return;
+        }
 
         for (int slot : slots) {
             inventory.setItem(slot, items.get(slot).build());
@@ -169,7 +157,9 @@ public class Menu implements EventWatcher {
     public void update() {
         Inventory inventory = player.getOpenInventory().getTopInventory();
 
-        if (inventory.getSize() % 9 != 0) return;
+        if (inventory.getSize() % 9 != 0) {
+            return;
+        }
 
         for (int slot : items.keySet()) {
             inventory.setItem(slot, items.get(slot).build());
@@ -179,14 +169,13 @@ public class Menu implements EventWatcher {
     /**
      * Opens the menu for the player. This distributes items on the same row automatically if these rows are assigned to automatically distribute.
      *
-     * @param   player
-     *          The player to open it to
+     * @param player The player to open it to
      */
     public void open(Player player) {
         this.player = player;
         Inventory inventory = Bukkit.createInventory(null, rows * 9, title);
-        
-        
+
+
         // Evenly distributed rows
         for (int row : evenlyDistributedRows) {
             int min = row * 9; // 0 * 9 = 0
@@ -199,10 +188,11 @@ public class Menu implements EventWatcher {
                 }
             }
 
-            
-            
-            if (itemsInRow.keySet().isEmpty()) return;
-            
+
+            if (itemsInRow.keySet().isEmpty()) {
+                return;
+            }
+
             List<Integer> sortedSlots = new ViList<>(itemsInRow.keySet()).sort().toList(); // sort all slots
             List<Integer> slots = getEvenlyDistributedSlots(sortedSlots.size()); // evenly distribute items
             List<Integer> olds = new ArrayList<>();
@@ -219,14 +209,18 @@ public class Menu implements EventWatcher {
             }
 
             for (int oldSlot : olds) {
-                if (news.contains(oldSlot)) continue; 
+                if (news.contains(oldSlot)) {
+                    continue;
+                }
                 items.remove(oldSlot); // remove items from previous slot without deleting ones that are to-be moved
             }
         }
 
         // Filler
-        if (filler == null) return;
-        
+        if (filler == null) {
+            return;
+        }
+
         Item fillerItem = new Item(filler, "<red> "); // fill the background with the same material
         for (int slot = 0; slot < rows * 9; slot++) {
             if (items.get(slot) != null) { // ignore already-set items
@@ -253,14 +247,20 @@ public class Menu implements EventWatcher {
 
     @EventHandler
     public void click(@NotNull InventoryClickEvent event) {
-        if (deactivated || event.getClickedInventory() != event.getView().getTopInventory()) return;
+        if (deactivated || event.getClickedInventory() != event.getView().getTopInventory()) {
+            return;
+        }
 
         UUID id = openMenus.get(event.getWhoClicked().getUniqueId());
-        if (id != inventoryId) return;
+        if (id != inventoryId) {
+            return;
+        }
 
         MenuItem clickedItem = items.get(event.getSlot());
-        if (clickedItem == null) return;
-        
+        if (clickedItem == null) {
+            return;
+        }
+
         event.setCancelled(!clickedItem.isMovable());
 
         clickedItem.handleClick(this, event, event.getClick());
@@ -268,11 +268,15 @@ public class Menu implements EventWatcher {
 
     @EventHandler
     public void close(InventoryCloseEvent event) {
-        if (deactivated) return;
+        if (deactivated) {
+            return;
+        }
 
         UUID viewerId = event.getPlayer().getUniqueId();
         UUID id = openMenus.get(viewerId);
-        if (id != inventoryId) return;
+        if (id != inventoryId) {
+            return;
+        }
 
         if (animation != null) {
             animation.stop();
@@ -286,9 +290,7 @@ public class Menu implements EventWatcher {
     /**
      * Returns the item in the respective slot.
      *
-     * @param   slot
-     *          The slot
-     *
+     * @param slot The slot
      * @return the item in this slot. This may be null.
      */
     public @Nullable MenuItem getItem(int slot) {

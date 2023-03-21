@@ -31,9 +31,7 @@ public class Vector2D implements Serializable {
     /**
      * Gets a Vector2D from a Bukkit vector
      *
-     * @param   vector
-     *          The Bukkit vector to be converted
-     *
+     * @param vector The Bukkit vector to be converted
      * @return a new Vector2D
      */
     public static Vector2D fromBukkit(Vector vector) {
@@ -43,9 +41,7 @@ public class Vector2D implements Serializable {
     /**
      * Adds another vector to this one by adding all coordinates one by one.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -58,9 +54,7 @@ public class Vector2D implements Serializable {
     /**
      * Multiplies all coordinates by the same modifier.
      *
-     * @param   modifier
-     *          The modifier which all coordinates will be multiplied by.
-     *
+     * @param modifier The modifier which all coordinates will be multiplied by.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -73,9 +67,7 @@ public class Vector2D implements Serializable {
     /**
      * Subtracts another vector from this one by subtracting all coordinates one by one.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the instance of this class with updated coordinates
      */
     @NotNull
@@ -88,9 +80,7 @@ public class Vector2D implements Serializable {
     /**
      * Gets the distance to another vector.
      *
-     * @param   other
-     *          The other vector.
-     *
+     * @param other The other vector.
      * @return the distance between the two vectors. Always positive.
      */
     public double distanceTo(@NotNull Vector2D other) {
@@ -103,11 +93,10 @@ public class Vector2D implements Serializable {
      * Rotates this vector a specific amount of degrees.
      * Clockwise is negative and counterclockwise is positive.
      *
-     * @param   deg
-     *          The angle in degrees.
+     * @param deg The angle in degrees.
      */
     public void rotate(int deg) {
-        double rad =  Math.toRadians(deg * -1);
+        double rad = Math.toRadians(deg * -1);
         double rotatedX = (Math.cos(rad) * x) - (Math.sin(rad) * y); // uses rotation matrix
         double rotatedY = (Math.sin(rad) * x) + (Math.cos(rad) * y);
 
@@ -140,9 +129,7 @@ public class Vector2D implements Serializable {
     /**
      * Gets the current angle in degrees between this vector and the provided vector instance.
      *
-     * @param   other
-     *          The other vector
-     *
+     * @param other The other vector
      * @return the angle in degrees to the other vector
      */
     public double angle(Vector2D other) {

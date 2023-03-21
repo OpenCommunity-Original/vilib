@@ -37,12 +37,8 @@ public class Cooldowns {
      *     The last execution was less than {@code cooldown} milliseconds ago.</li>
      * </ul>
      *
-     * @param   key
-     *          The key by which the system can differentiate actions.
-     *
-     * @param   cooldown
-     *          The cooldown in milliseconds.
-     *
+     * @param key      The key by which the system can differentiate actions.
+     * @param cooldown The cooldown in milliseconds.
      * @return true if the action {@code key} was more than {@code cooldown} ms ago, false if not.
      */
     public static boolean canPerform(@NotNull String key, long cooldown) {
@@ -78,28 +74,22 @@ public class Cooldowns {
      *     The last execution was less than {@code cooldown} milliseconds ago.</li>
      * </ul>
      *
-     * @param   key
-     *          The key by which the system can differentiate actions.
-     *
-     * @param   cooldown
-     *          The cooldown in milliseconds.
-     *
+     * @param key      The key by which the system can differentiate actions.
+     * @param cooldown The cooldown in milliseconds.
      * @return true if the action {@code key} was more than {@code cooldown} ms ago, false if not.
      */
     public static boolean canPerform(@NotNull Player player, @NotNull String key, long cooldown) {
         Objects.requireNonNull(player);
         Objects.requireNonNull(key);
 
-        return canPerform(player.getUniqueId() + "-"  + key, cooldown);
+        return canPerform(player.getUniqueId() + "-" + key, cooldown);
     }
 
     /**
      * Returns the last registered execution time (in ms) of the specified string key. Can be null.
      * <strong>This method is only recommended to be used with global actions</strong>, e.g. requiring no player.
      *
-     * @param   key
-     *          The key by which the system can differentiate actions.
-     *
+     * @param key The key by which the system can differentiate actions.
      * @return the last execution time (in ms) of the global action. Can be null.
      */
     @Nullable
@@ -113,12 +103,8 @@ public class Cooldowns {
      * Returns the last registered execution time (in ms) of the specified string key that's associated to the provided player.
      * Can be null.
      *
-     * @param   player
-     *          The player.
-     *
-     * @param   key
-     *          The key by which the system can differentiate actions.
-     *
+     * @param player The player.
+     * @param key    The key by which the system can differentiate actions.
      * @return the last execution time (in ms) of the player. Can be null.
      */
     @Nullable

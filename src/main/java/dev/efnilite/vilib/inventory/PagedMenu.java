@@ -34,9 +34,7 @@ public class PagedMenu extends Menu {
     /**
      * Excludes a specific set of rows from being used to display items
      *
-     * @param   rows
-     *          The rows which will be excluded. Starts from 0.
-     *
+     * @param rows The rows which will be excluded. Starts from 0.
      * @return the instance of this
      */
     public PagedMenu displayRows(int... rows) {

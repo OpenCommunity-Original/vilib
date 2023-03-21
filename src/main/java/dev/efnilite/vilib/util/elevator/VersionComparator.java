@@ -9,7 +9,6 @@ public enum VersionComparator {
      * Tests whether version strings are equal.
      */
     EQUAL {
-
         @Override
         public boolean isLatest(String latest, String current) {
             return latest.equalsIgnoreCase(current);
@@ -20,7 +19,6 @@ public enum VersionComparator {
      * Compares versions with a semantic syntax. Does not support letters, just numbers.
      */
     FROM_SEMANTIC {
-
         @Override
         public boolean isLatest(String latest, String current) {
             try {

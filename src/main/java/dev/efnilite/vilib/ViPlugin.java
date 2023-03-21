@@ -39,16 +39,15 @@ public abstract class ViPlugin extends JavaPlugin {
         } else {
             gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().disableHtmlEscaping().create();
 
-            Task.create(this)
-                .async()
-                .repeat(GitElevator.CHECK_INTERVAL)
-                .execute(() -> {
-                    if (elevator == null) {
-                        elevator = getElevator();
-                    }
+            Task.create(this).async().repeat(GitElevator.CHECK_INTERVAL).execute(() -> {
+                if (elevator == null) {
+                    elevator = getElevator();
+                }
 
-                    if (elevator != null) elevator.check();
-                }).run();
+                if (elevator != null) {
+                    elevator.check();
+                }
+            }).run();
         }
 
         enable();
@@ -93,11 +92,8 @@ public abstract class ViPlugin extends JavaPlugin {
     /**
      * Register a command to this plugin.
      *
-     * @param   name
-     *          The name of the command in plugin.yml
-     *
-     * @param   command
-     *          The command class
+     * @param name    The name of the command in plugin.yml
+     * @param command The command class
      */
     public void registerCommand(String name, ViCommand command) {
         ViCommand.register(name, command);
@@ -106,10 +102,8 @@ public abstract class ViPlugin extends JavaPlugin {
     /**
      * Registers a Listener, with this plugin as its owner.
      *
+     * @param listener The listener to register.
      * @see dev.efnilite.vilib.event.EventWatcher
-     *
-     * @param   listener
-     *          The listener to register.
      */
     public void registerListener(Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
