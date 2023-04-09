@@ -1,6 +1,6 @@
 package dev.efnilite.vilib.inventory.animation;
 
-import dev.efnilite.vilib.vector.Vector2D;
+import org.bukkit.util.Vector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ public final class SnakeSingleAnimation extends MenuAnimation {
 
     private int rows;
     private int currentSlot = 0;
-    private final Vector2D heading = new Vector2D(0, -1);
+    private final Vector heading = new Vector(0, 0, -1);
     private final List<Integer> path = new ArrayList<>();
 
     @Override
@@ -46,7 +46,7 @@ public final class SnakeSingleAnimation extends MenuAnimation {
     private List<Integer> getFromPath() {
         List<Integer> result = new ArrayList<>();
         for (int i = 0; i < 2; i++) {
-            if (path.size() <= 0) {
+            if (path.size() == 0) {
                 break;
             }
             result.add(path.get(0));
@@ -56,8 +56,8 @@ public final class SnakeSingleAnimation extends MenuAnimation {
     }
 
     private int getNextSlot() {
-        int horizontal = (int) heading.x;
-        int vertical = (int) heading.y;
+        int horizontal = (int) heading.getX();
+        int vertical = (int) heading.getZ();
 
         int next;
         if (horizontal != 0) { // get next horizontal
@@ -70,7 +70,7 @@ public final class SnakeSingleAnimation extends MenuAnimation {
             currentSlot = next;
             return currentSlot;
         } else {
-            heading.rotate(-90); // if not, rotate vector and try again
+            heading.rotateAroundY(-90); // if not, rotate vector and try again
             return getNextSlot();
         }
     }
