@@ -4,14 +4,17 @@ import com.google.common.annotations.Beta;
 import dev.efnilite.vilib.ViMain;
 import dev.efnilite.vilib.inventory.Menu;
 import dev.efnilite.vilib.inventory.MenuClickEvent;
+import dev.efnilite.vilib.util.Colls;
 import dev.efnilite.vilib.util.Task;
-import dev.efnilite.vilib.util.collections.ViMap;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.InventoryView;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scheduler.BukkitRunnable;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Consumer;
 
 /**
@@ -29,8 +32,8 @@ public class AutoSliderItem extends MenuItem {
     private int cooldown;
     private final int slot;
     private final Menu menu;
-    private final ViMap<Integer, Item> items = new ViMap<>();
-    private final ViMap<Integer, Consumer<MenuClickEvent>> clickFunctions = new ViMap<>();
+    private final Map<Integer, Item> items = new HashMap<>();
+    private final Map<Integer, Consumer<MenuClickEvent>> clickFunctions = new HashMap<>();
 
     /**
      * The constructor.
@@ -92,13 +95,13 @@ public class AutoSliderItem extends MenuItem {
 
     @Override
     public ItemStack build() {
-        if (items.keySet().size() <= 0) {
+        if (items.keySet().size() == 0) {
             throw new IllegalArgumentException("Items size is <0 or 0!");
         }
 
         Item init = items.get(current);
         if (init == null) {
-            init = items.get(items.randomKey());
+            init = items.get(Colls.random(new ArrayList<>(items.keySet())));
         }
 
         if (items.size() > 1) { // loop through if there are more than 1 players

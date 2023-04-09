@@ -8,7 +8,6 @@ import dev.efnilite.vilib.inventory.item.MenuItem;
 import dev.efnilite.vilib.util.Numbers;
 import dev.efnilite.vilib.util.Strings;
 import dev.efnilite.vilib.util.Task;
-import dev.efnilite.vilib.util.collections.ViList;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -20,6 +19,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Class for Menu handling
@@ -193,7 +193,7 @@ public class Menu implements EventWatcher {
                 return;
             }
 
-            List<Integer> sortedSlots = new ViList<>(itemsInRow.keySet()).sort().toList(); // sort all slots
+            List<Integer> sortedSlots = itemsInRow.keySet().stream().sorted().collect(Collectors.toList()); // sort all slots
             List<Integer> slots = getEvenlyDistributedSlots(sortedSlots.size()); // evenly distribute items
             List<Integer> olds = new ArrayList<>();
             List<Integer> news = new ArrayList<>();

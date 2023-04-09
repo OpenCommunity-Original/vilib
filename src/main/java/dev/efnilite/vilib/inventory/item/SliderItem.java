@@ -2,11 +2,14 @@ package dev.efnilite.vilib.inventory.item;
 
 import dev.efnilite.vilib.inventory.Menu;
 import dev.efnilite.vilib.inventory.MenuClickEvent;
-import dev.efnilite.vilib.util.collections.ViMap;
+import dev.efnilite.vilib.util.Colls;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.inventory.ItemStack;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.function.Predicate;
 
 /**
@@ -20,8 +23,8 @@ public class SliderItem extends MenuItem {
      * The initial value which will be displayed
      */
     private int current;
-    private final ViMap<Integer, Item> items = new ViMap<>();
-    private final ViMap<Integer, Predicate<MenuClickEvent>> switchFunctions = new ViMap<>();
+    private final Map<Integer, Item> items = new HashMap<>();
+    private final Map<Integer, Predicate<MenuClickEvent>> switchFunctions = new HashMap<>();
 
     /**
      * Sets the initial viewing index.
@@ -94,13 +97,13 @@ public class SliderItem extends MenuItem {
 
     @Override
     public ItemStack build() {
-        if (items.keySet().size() <= 0) {
-            throw new IllegalArgumentException("Items size is <0 or 0!");
+        if (items.keySet().size() == 0) {
+            throw new IllegalArgumentException("Items size is 0!");
         }
 
         Item init = items.get(current);
         if (init == null) {
-            init = items.get(items.randomKey());
+            init = items.get(Colls.random(new ArrayList<>(items.keySet())));
         }
 
         return init.build();

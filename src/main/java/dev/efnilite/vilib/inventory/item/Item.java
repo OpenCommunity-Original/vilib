@@ -2,7 +2,6 @@ package dev.efnilite.vilib.inventory.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import com.google.common.collect.MultimapBuilder;
 import dev.efnilite.vilib.util.Strings;
 import dev.efnilite.vilib.util.Version;
 import org.bukkit.Bukkit;
@@ -113,6 +112,20 @@ public class Item extends MenuItem {
         return item;
     }
 
+    /**
+     * Builds the meta for this item and passes it in f.
+     * The result of f is set as the meta for this item.
+     * The updated item is returned.
+     *
+     * @param f The function where the beginning item meta is provided and the final meta returned.
+     * @return This item with the returned item meta.
+     */
+    public ItemStack build(Function<ItemMeta, ItemMeta> f) {
+        ItemStack item = build();
+        item.setItemMeta(f.apply(item.getItemMeta()));
+        return item;
+    }
+
     @SuppressWarnings("all")
     @Override
     public Item clone() {
@@ -123,7 +136,7 @@ public class Item extends MenuItem {
         item.unbreakable = unbreakable;
         item.meta = meta;
         item.lore = lore;
-        item.attributes = attributes;
+//        item.attributes = attributes;
         item.enchantments = enchantments;
 
         return item;
