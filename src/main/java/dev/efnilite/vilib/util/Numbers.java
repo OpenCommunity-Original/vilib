@@ -1,8 +1,11 @@
 package dev.efnilite.vilib.util;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Number utils
@@ -21,33 +24,13 @@ public class Numbers {
     }
 
     /**
-     * Gets all ints from 0 (inclusive) to n (inclusive)
-     *
-     * @param n The max value
-     * @return a list with all ints from 0 to n
-     */
-    public static List<Integer> getFromZero(int n) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = 0; i <= n; i++) {
-            result.add(i);
-        }
-        return result;
-    }
-
-    /**
      * Gets the min int from an Array of ints
      *
      * @param ints All ints
      * @return the smallest of the values of parameter ints
      */
     public static int min(int... ints) {
-        int min = Integer.MAX_VALUE;
-
-        for (int value : ints) {
-            min = Math.min(min, value);
-        }
-
-        return min;
+        return Arrays.stream(ints).min().orElseThrow();
     }
 
     /**
@@ -57,13 +40,7 @@ public class Numbers {
      * @return the int with the biggest value
      */
     public static int max(int... ints) {
-        int max = Integer.MIN_VALUE;
-
-        for (int value : ints) {
-            max = Math.max(max, value);
-        }
-
-        return max;
+        return Arrays.stream(ints).max().orElseThrow();
     }
 
     /**
@@ -74,10 +51,16 @@ public class Numbers {
      * @return a list of all real numbers between the two bounds
      */
     public static List<Integer> getFromTo(int from, int to) {
-        List<Integer> result = new ArrayList<>();
-        for (int i = min(from, to); i <= max(from, to); i++) {
-            result.add(i);
-        }
-        return result;
+        return IntStream.rangeClosed(min(from, to), max(from, to)).boxed().collect(Collectors.toList());
+    }
+
+    /**
+     * Gets all ints from 0 (inclusive) to n (inclusive)
+     *
+     * @param n The max value
+     * @return a list with all ints from 0 to n
+     */
+    public static List<Integer> getFromZero(int n) {
+        return getFromTo(0, n);
     }
 }

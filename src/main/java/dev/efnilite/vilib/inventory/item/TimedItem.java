@@ -27,7 +27,7 @@ public class TimedItem extends MenuItem {
 
     public TimedItem(MenuItem item, MenuClickEvent event) {
         this.item = item;
-        this.revertTo = event.getMenu().getItem(event.getSlot());
+        this.revertTo = event.menu().getItem(event.slot());
         if (revertTo == null) {
             revertTo = new Item(Material.AIR, "<red> ");
         }
@@ -51,11 +51,11 @@ public class TimedItem extends MenuItem {
         BukkitRunnable runnable = new BukkitRunnable() {
             @Override
             public void run() {
-                Menu menu = event.getMenu();
+                Menu menu = event.menu();
                 InventoryView view = player.getOpenInventory();
                 if (view.getTitle().equals(menu.getTitle())) {
-                    menu.item(event.getSlot(), revertTo);
-                    menu.updateItem(event.getSlot());
+                    menu.item(event.slot(), revertTo);
+                    menu.updateItem(event.slot());
                 } else {
                     cancel(); // prevent going on forever
                 }

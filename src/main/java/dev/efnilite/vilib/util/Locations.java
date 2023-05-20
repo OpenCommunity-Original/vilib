@@ -41,9 +41,9 @@ public class Locations {
      */
     public static String toString(Location location, boolean formatted) {
         if (!formatted) {
-            return "(" + location.getX() + "," + location.getY() + "," + location.getZ() + "," + location.getWorld().getName() + ")";
+            return "(%s,%s,%s,%s)".formatted(location.getX(), location.getY(), location.getZ(), location.getWorld().getName());
         } else {
-            return "(" + location.getBlockX() + ", " + location.getBlockY() + ", " + location.getBlockZ() + ")";
+            return "(%d, %d, %d)".formatted(location.getBlockX(), location.getBlockY(), location.getBlockZ());
         }
     }
 
@@ -54,7 +54,10 @@ public class Locations {
      * @return the location from the string
      */
     public static Location parseLocation(String string) {
-        String[] values = string.replaceAll("[()]", "").replace(", ", " ").replace(",", " ").split(" ");
+        String[] values = string.replaceAll("[()]", "")
+                .replace(", ", " ")
+                .replace(",", " ")
+                .split(" ");
 
         World world = Bukkit.getWorld(values[3]);
 

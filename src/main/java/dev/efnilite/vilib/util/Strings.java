@@ -11,8 +11,12 @@ import java.util.stream.Collectors;
 
 public class Strings {
 
-    private static final MiniMessage miniMessage = MiniMessage.miniMessage();
-    private static final LegacyComponentSerializer legacyComponentSerializer = LegacyComponentSerializer.builder().extractUrls().hexColors().character(LegacyComponentSerializer.SECTION_CHAR).useUnusualXRepeatedCharacterHexFormat() // spigot makes me sad :(
+    private static final MiniMessage MINI_MESSAGE = MiniMessage.miniMessage();
+    private static final LegacyComponentSerializer LEGACY_COMPONENT_SERIALIZER = LegacyComponentSerializer.builder()
+            .extractUrls()
+            .hexColors()
+            .character(LegacyComponentSerializer.SECTION_CHAR)
+            .useUnusualXRepeatedCharacterHexFormat() // spigot makes me sad :(
             .build();
 
     /**
@@ -52,9 +56,9 @@ public class Strings {
      */
     @NotNull
     public static String colour(@NotNull String string) {
-        Component component = miniMessage.deserialize(string); // sanitize input
+        Component component = MINI_MESSAGE.deserialize(string); // sanitize input
 
-        return ChatColor.translateAlternateColorCodes(LegacyComponentSerializer.SECTION_CHAR, legacyComponentSerializer.serialize(component));
+        return ChatColor.translateAlternateColorCodes(LegacyComponentSerializer.SECTION_CHAR, LEGACY_COMPONENT_SERIALIZER.serialize(component));
     }
 
     /**

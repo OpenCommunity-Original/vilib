@@ -13,20 +13,52 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+
 /**
  * Main class which plugins may inherit to reduce the amount of setup required.
  * Classes inheriting this may want to create static methods to inherit the logging and ViPlugin vars.
- * Made by Efnilite (c) 2021-2023
+ * Made by Efnilite, 2021-2023
  *
  * @since 1.0.0
  */
 public abstract class ViPlugin extends JavaPlugin {
 
-    protected Logging logging;
-    protected ViPlugin viPlugin;
-    protected GitElevator elevator;
+    protected static ViPlugin viPlugin;
     protected static Gson gson;
     protected static Version version;
+    protected static Logging logging;
+
+    /**
+     * @param child The file name.
+     * @return A file from within the plugin folder.
+     */
+    public static File getInFolder(String child) {
+        return new File(viPlugin.getDataFolder(), child);
+    }
+
+    /**
+     * @return The logger.
+     */
+    public static Logging logging() {
+        return logging;
+    }
+
+    /**
+     * @return a Gson instance which has already been set up.
+     */
+    public static Gson getGson() {
+        return gson;
+    }
+
+    /**
+     * @return The version.
+     */
+    public static Version getVersion() {
+        return version;
+    }
+
+    protected GitElevator elevator;
 
     @Override
     public void onEnable() {
@@ -107,14 +139,5 @@ public abstract class ViPlugin extends JavaPlugin {
      */
     public void registerListener(Listener listener) {
         getServer().getPluginManager().registerEvents(listener, this);
-    }
-
-    /**
-     * Gets a default Gson instance.
-     *
-     * @return a Gson instance which has already been set up.
-     */
-    public static Gson getGson() {
-        return gson;
     }
 }

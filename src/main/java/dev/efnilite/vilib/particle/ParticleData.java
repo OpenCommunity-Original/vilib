@@ -8,7 +8,7 @@ import org.jetbrains.annotations.Nullable;
  *
  * @author Efnilite
  */
-public class ParticleData<Data> {
+public class ParticleData<T> {
 
     private int size;
     private double speed;
@@ -17,17 +17,17 @@ public class ParticleData<Data> {
     private double offsetZ;
     private Particle type;
     @Nullable
-    private Data data;
+    private T data;
 
-    public ParticleData(Particle type, @Nullable Data data, int size) {
+    public ParticleData(Particle type, @Nullable T data, int size) {
         this(type, data, size, 0, 0, 0, 0);
     }
 
-    public ParticleData(Particle type, @Nullable Data data, int size, double speed) {
+    public ParticleData(Particle type, @Nullable T data, int size, double speed) {
         this(type, data, size, speed, 0, 0, 0);
     }
 
-    public ParticleData(Particle type, @Nullable Data data, int size, double offsetX, double offsetY, double offsetZ) {
+    public ParticleData(Particle type, @Nullable T data, int size, double offsetX, double offsetY, double offsetZ) {
         this(type, data, size, 0, offsetX, offsetY, offsetZ);
     }
 
@@ -42,7 +42,7 @@ public class ParticleData<Data> {
      * @param offsetY The max y offset in moving
      * @param offsetZ The max z offset in moving
      */
-    public ParticleData(Particle type, @Nullable Data data, int size, double speed, double offsetX, double offsetY, double offsetZ) {
+    public ParticleData(Particle type, @Nullable T data, int size, double speed, double offsetX, double offsetY, double offsetZ) {
         this.data = data;
         this.type = type;
         this.size = size;
@@ -52,37 +52,37 @@ public class ParticleData<Data> {
         this.offsetZ = offsetZ;
     }
 
-    public ParticleData<Data> size(int size) {
+    public ParticleData<T> size(int size) {
         this.size = size;
         return this;
     }
 
-    public ParticleData<Data> speed(double speed) {
+    public ParticleData<T> speed(double speed) {
         this.speed = speed;
         return this;
     }
 
-    public ParticleData<Data> offsetX(double offsetX) {
+    public ParticleData<T> offsetX(double offsetX) {
         this.offsetX = offsetX;
         return this;
     }
 
-    public ParticleData<Data> offsetY(double offsetY) {
+    public ParticleData<T> offsetY(double offsetY) {
         this.offsetY = offsetY;
         return this;
     }
 
-    public ParticleData<Data> offsetZ(double offsetZ) {
+    public ParticleData<T> offsetZ(double offsetZ) {
         this.offsetZ = offsetZ;
         return this;
     }
 
-    public ParticleData<Data> data(@Nullable Data data) {
+    public ParticleData<T> data(@Nullable T data) {
         this.data = data;
         return this;
     }
 
-    public ParticleData<Data> type(Particle type) {
+    public ParticleData<T> type(Particle type) {
         this.type = type;
         return this;
     }
@@ -107,8 +107,7 @@ public class ParticleData<Data> {
         return offsetZ;
     }
 
-    @Nullable
-    public Data getData() {
+    public @Nullable T getData() {
         return data;
     }
 

@@ -13,9 +13,9 @@ import org.bukkit.scheduler.BukkitTask;
  */
 public class Task {
 
-    private int delay;
-    private int repeat;
-    private boolean async;
+    private int delay = 0;
+    private int repeat = 0;
+    private boolean async = false;
     private final Plugin plugin;
     private Runnable defaultRunnable;
     private BukkitTask task;
@@ -23,9 +23,6 @@ public class Task {
 
     public Task(Plugin plugin) {
         this.plugin = plugin;
-        this.delay = 0;
-        this.repeat = 0;
-        this.async = false;
     }
 
     /**

@@ -8,6 +8,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 public final class Colls {
 
@@ -140,13 +142,7 @@ public final class Colls {
      * @return n random items from coll.
      */
     public static <T> List<T> random(List<T> coll, int n) {
-        List<T> items = new ArrayList<>();
-
-        for (int i = 0; i < n; i++) {
-            items.add(random(coll));
-        }
-
-        return items;
+        return IntStream.range(0, n).mapToObj(i -> random(coll)).collect(Collectors.toList());
     }
 
     /**
@@ -156,13 +152,7 @@ public final class Colls {
      * @return List with all ints from start to end with increment step.
      */
     public static List<Integer> range(int start, int end, int step) {
-        List<Integer> items = new ArrayList<>();
-
-        for (int i = start; i < end; i += step) {
-            items.add(i);
-        }
-
-        return items;
+        return IntStream.iterate(start, i -> i < end, i -> i + step).boxed().collect(Collectors.toList());
     }
 
     /**

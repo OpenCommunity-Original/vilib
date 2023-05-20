@@ -21,7 +21,7 @@ public class SkullSetter {
             hasTexturesMethod = playerProfileClass.getDeclaredMethod("hasTextures");
             setPlayerProfileMethod = SkullMeta.class.getDeclaredMethod("setPlayerProfile", playerProfileClass);
             isPaper = true;
-        } catch (Throwable ex) {
+        } catch (Exception ex) {
             isPaper = false;
         }
     }
@@ -35,17 +35,17 @@ public class SkullSetter {
     }
 
     public static void setPlayerHead(Player player, SkullMeta meta) {
-        if (isPaper) {
-            try {
-                Object playerProfile = getPlayerProfileMethod.invoke(player);
-                boolean hasTexture = (boolean) hasTexturesMethod.invoke(playerProfile);
-                if (hasTexture) {
-                    setPlayerProfileMethod.invoke(meta, playerProfile);
-                }
-            } catch (Throwable throwable) {
-                setPlayerHead((OfflinePlayer) player, meta);
+        if (!isPaper) {
+            setPlayerHead((OfflinePlayer) player, meta);
+            return;
+        }
+        try {
+            Object playerProfile = getPlayerProfileMethod.invoke(player);
+            boolean hasTexture = (boolean) hasTexturesMethod.invoke(playerProfile);
+            if (hasTexture) {
+                setPlayerProfileMethod.invoke(meta, playerProfile);
             }
-        } else {
+        } catch (Exception ex) {
             setPlayerHead((OfflinePlayer) player, meta);
         }
     }

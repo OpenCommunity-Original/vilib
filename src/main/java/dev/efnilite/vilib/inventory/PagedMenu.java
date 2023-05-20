@@ -113,7 +113,7 @@ public class PagedMenu extends Menu {
         int page = 0;
         while (total.size() > 0) {
             for (int slot = 0; slot < displaySlots.size(); slot++) {
-                if (total.size() <= 0) {
+                if (total.size() == 0) {
                     break;
                 }
                 thisPage.add(total.get(0));

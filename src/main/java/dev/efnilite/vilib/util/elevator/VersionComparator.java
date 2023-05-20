@@ -22,10 +22,7 @@ public enum VersionComparator {
         @Override
         public boolean isLatest(String latest, String current) {
             try {
-                int latestVs = Integer.parseInt(strip(latest));
-                int currentVs = Integer.parseInt(strip(current));
-
-                return latestVs <= currentVs;
+                return toVersionNumber(latest) <= toVersionNumber(current);
             } catch (NumberFormatException ex) {
                 return false; // if numbers contain letters, assume the worst by not being updated
             }
@@ -33,6 +30,12 @@ public enum VersionComparator {
     };
 
     public abstract boolean isLatest(String latest, String current);
+
+    protected double toVersionNumber(String version) {
+        String stripped = strip(version);
+
+        return Double.parseDouble(stripped) / stripped.length();
+    }
 
     // strips a string
     protected String strip(String string) {

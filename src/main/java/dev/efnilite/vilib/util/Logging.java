@@ -41,15 +41,15 @@ public class Logging {
 
     public void stack(String error, @Nullable String fix, @Nullable Throwable throwable) {
         error("##");
-        error("## " + plugin.getName() + " has encountered a critical error!");
-        error("## " + error);
+        error("## %s has encountered a critical error!".formatted(plugin.getName()));
+        error("## %s".formatted(error));
         error("##");
 
         if (throwable == null) {
             error("## No stack trace provided");
         } else {
             error("## Stack trace:");
-            error("## " + throwable);
+            error("## %s".formatted(throwable));
             StackTraceElement[] stack = throwable.getStackTrace();
             for (StackTraceElement stackTraceElement : stack) {
                 error("##\t" + stackTraceElement.toString());
@@ -63,15 +63,15 @@ public class Logging {
             error("## Be sure to send the entire error while reporting.");
         } else {
             error("## This is probably not your fault, but you may be able to fix it.");
-            error("## You should try: " + fix);
+            error("## You should try: %s".formatted(fix));
             error("## Contact the developer if this doesn't work.");
             error("## Be sure to send the entire error while reporting.");
         }
         error("##");
         error("## Version information:");
-        error("##\tPlugin Version: " + plugin.getDescription().getVersion());
-        error("##\tvilib Version: " + ViMain.getPlugin().getDescription().getVersion());
-        error("##\tMinecraft: " + Version.getVersion().name().replaceAll("_", "."));
+        error("##\tPlugin Version: %s".formatted(plugin.getDescription().getVersion()));
+        error("##\tvilib Version: %s".formatted(ViMain.getPlugin().getDescription().getVersion()));
+        error("##\tMinecraft: %s".formatted(Version.getVersion().name().replaceAll("_", ".")));
         error("##");
     }
 }

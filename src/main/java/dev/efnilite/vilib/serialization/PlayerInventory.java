@@ -153,7 +153,7 @@ public class PlayerInventory {
      * Gets an item from a slot
      *
      * @param slot The slot
-     * @return the item, null if there isnt one
+     * @return the item, null if there isn't one
      */
     @Nullable
     public ItemStack get(int slot) {

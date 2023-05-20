@@ -38,7 +38,7 @@ public class Item extends MenuItem {
     private ItemMeta meta;
     private Material material;
     private List<String> lore = new ArrayList<>();
-    private Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+    private final Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**

@@ -39,65 +39,6 @@ public class Particles {
         player.spawnParticle(data.getType(), at, data.getSize(), data.getOffsetX(), data.getOffsetY(), data.getOffsetZ(), data.getSpeed(), data.getData());
     }
 
-    /*/**
-     * Draws a thunder-like effect between 2 locations
-     * <p>
-     * First gets the locations between the 2 locations using param distanceBetween, then at random locations generates circles.
-     * A random location from that circle is picked to be the location where one of the branches goes to.
-     * This process is repeated until it reaches the second location.
-     * </p>
-     *
-     * @param   shoot
-     *          The location from where the tower shoots (always shoot variable)
-     *
-     * @param   entity
-     *          The location of the entity
-     *
-     * @param   data
-     *          The particle data
-     *
-     * @param   maxBranchTimes
-     *          The max amount of branch times
-     *
-     * @param   radius
-     *          The max radius of the lightning
-     */
-    /*public static <T> void thunder(Location shoot, Location entity, ParticleData<T> data, double distanceBetween, int maxBranchTimes, int branchAmount, double radius) {
-        ThreadLocalRandom random = ThreadLocalRandom.current();
-        double distance = shoot.distance(entity);
-        double amount = distance / distanceBetween;
-        World world = shoot.getWorld() == null ? entity.getWorld() : shoot.getWorld();
-        if (world == null) {
-            throw new NullPointerException("World is null (Particles#thunder)");
-        }
-
-        Location max = Util.max(shoot, entity); // 10, 10, 10
-        Location min = Util.min(shoot, entity); // 0, 0, 0
-
-        double intervalX = (max.getX() - min.getX()) / amount;
-        double intervalY = (max.getY() - min.getY()) / amount;
-        double intervalZ = (max.getZ() - min.getZ()) / amount;
-
-
-        // per
-        for (int i = 0; i < branchAmount; i++) {
-
-        }
-    }
-
-    private int thunder(Location location, int max, int branchAmount, double radius) {
-        double increment = (2 * Math.PI) / 100; // calc degree per amount, 2 x pi x r = circumference
-        double y = location.getY();
-
-        for (int i = 0; i < 100; i++) {
-            double angle = i * increment;
-            double x = location.getX() + (radius * Math.cos(angle));
-            double z = location.getZ() + (radius * Math.sin(angle));
-
-        }
-        return max--;
-    }*/
-
     /**
      * Draws a particle line between 2 points
      * <p>
