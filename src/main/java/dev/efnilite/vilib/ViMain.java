@@ -1,17 +1,36 @@
 package dev.efnilite.vilib;
 
+import dev.efnilite.vilib.util.Logging;
 import dev.efnilite.vilib.util.elevator.GitElevator;
 import dev.efnilite.vilib.util.elevator.VersionComparator;
 import org.bstats.bukkit.Metrics;
 import org.jetbrains.annotations.Nullable;
 
+import java.io.File;
+
 public class ViMain extends ViPlugin {
 
     private static ViMain instance;
 
+    /**
+     * @param child The file name.
+     * @return A file from within the plugin folder.
+     */
+    public static File getInFolder(String child) {
+        return new File(instance.getDataFolder(), child);
+    }
+
+    /**
+     * @return The logger.
+     */
+    public static Logging logging() {
+        return logging;
+    }
+
     @Override
     public void enable() {
         instance = this;
+        logging = new Logging(this);
 
         new Metrics(this, 15090);
 

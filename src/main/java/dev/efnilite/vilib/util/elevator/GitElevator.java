@@ -54,7 +54,7 @@ public class GitElevator {
     @SuppressWarnings("deprecation") // <1.13
     public void check() {
         try {
-            String url = "https://api.github.com/repos/" + repo + "/releases/latest";
+            String url = "https://api.github.com/repos/%s/releases/latest".formatted(repo);
 
             HttpURLConnection connection = (HttpURLConnection) new URL(url).openConnection();
             connection.setRequestProperty("accept", "application/json");

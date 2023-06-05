@@ -175,7 +175,6 @@ public class Menu implements EventWatcher {
         this.player = player;
         Inventory inventory = Bukkit.createInventory(null, rows * 9, title);
 
-
         // Evenly distributed rows
         for (int row : evenlyDistributedRows) {
             int min = row * 9; // 0 * 9 = 0
@@ -188,12 +187,11 @@ public class Menu implements EventWatcher {
                 }
             }
 
-
             if (itemsInRow.keySet().isEmpty()) {
-                return;
+                continue;
             }
 
-            List<Integer> sortedSlots = itemsInRow.keySet().stream().sorted().collect(Collectors.toList()); // sort all slots
+            List<Integer> sortedSlots = itemsInRow.keySet().stream().sorted().toList(); // sort all slots
             List<Integer> slots = getEvenlyDistributedSlots(sortedSlots.size()); // evenly distribute items
             List<Integer> olds = new ArrayList<>();
             List<Integer> news = new ArrayList<>();
@@ -217,18 +215,17 @@ public class Menu implements EventWatcher {
         }
 
         // Filler
-        if (filler == null) {
-            return;
-        }
+        if (filler != null) {
+            Item fillerItem = new Item(filler, "<red> "); // fill the background with the same material
+            for (int slot = 0; slot < rows * 9; slot++) {
+                if (items.get(slot) != null) { // ignore already-set items
+                    continue;
+                }
 
-        Item fillerItem = new Item(filler, "<red> "); // fill the background with the same material
-        for (int slot = 0; slot < rows * 9; slot++) {
-            if (items.get(slot) != null) { // ignore already-set items
-                continue;
+                items.put(slot, fillerItem);
             }
-
-            items.put(slot, fillerItem);
         }
+
 
         player.openInventory(inventory);
 

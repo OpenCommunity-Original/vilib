@@ -13,8 +13,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.io.File;
-
 /**
  * Main class which plugins may inherit to reduce the amount of setup required.
  * Classes inheriting this may want to create static methods to inherit the logging and ViPlugin vars.
@@ -24,25 +22,9 @@ import java.io.File;
  */
 public abstract class ViPlugin extends JavaPlugin {
 
-    protected static ViPlugin viPlugin;
     protected static Gson gson;
     protected static Version version;
-    protected static Logging logging;
-
-    /**
-     * @param child The file name.
-     * @return A file from within the plugin folder.
-     */
-    public static File getInFolder(String child) {
-        return new File(viPlugin.getDataFolder(), child);
-    }
-
-    /**
-     * @return The logger.
-     */
-    public static Logging logging() {
-        return logging;
-    }
+    protected static Logging logging = null;
 
     /**
      * @return a Gson instance which has already been set up.
@@ -62,8 +44,6 @@ public abstract class ViPlugin extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        viPlugin = this;
-        logging = new Logging(this);
         version = Version.getVersion();
 
         if (Version.isHigherOrEqual(Version.V1_13)) { // <1.13 makes me sad

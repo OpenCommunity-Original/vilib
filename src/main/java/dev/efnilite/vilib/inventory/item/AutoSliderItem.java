@@ -104,7 +104,7 @@ public class AutoSliderItem extends MenuItem {
             init = items.get(Colls.random(new ArrayList<>(items.keySet())));
         }
 
-        if (items.size() > 1) { // loop through if there are more than 1 players
+        if (items.size() > 1) { // loop through if there is more than 1 player
             BukkitRunnable runnable = new BukkitRunnable() {
                 @Override
                 public void run() {
