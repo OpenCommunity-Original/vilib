@@ -19,6 +19,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
+import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 /**
@@ -37,8 +38,8 @@ public class Item extends MenuItem {
     private String name;
     private ItemMeta meta;
     private Material material;
-    private List<String> lore = new ArrayList<>();
-    private final Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
+    private Supplier<List<String>> lore;
+    private Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 
     /**
@@ -98,7 +99,7 @@ public class Item extends MenuItem {
         }
 
         meta.setDisplayName(Strings.colour(name));
-        meta.setLore(Strings.colour(lore));
+        meta.setLore(Strings.colour(lore.get()));
         meta.setCustomModelData(modelId);
 
         if (Version.isHigherOrEqual(Version.V1_13)) {
@@ -136,7 +137,7 @@ public class Item extends MenuItem {
         item.unbreakable = unbreakable;
         item.meta = meta;
         item.lore = lore;
-//        item.attributes = attributes;
+        item.attributes = attributes;
         item.enchantments = enchantments;
 
         return item;
@@ -241,12 +242,10 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item lore(@Nullable List<String> lore) {
-        if (lore == null || lore.isEmpty()) {
-            return this;
+        if (lore != null && !lore.isEmpty()) {
+            this.lore = () -> lore;
         }
 
-        this.lore.clear();
-        this.lore.addAll(lore);
         return this;
     }
 
@@ -257,7 +256,21 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item lore(String... lore) {
-        return lore(Arrays.asList(lore));
+        return lore(List.of(lore));
+    }
+
+    /**
+     * Sets the lore supplier.
+     *
+     * @param supplier The lore supplier.
+     * @return the instance of this class
+     */
+    public Item lore(@Nullable Supplier<List<String>> supplier) {
+        if (supplier != null) {
+            this.lore = supplier;
+        }
+
+        return this;
     }
 
     /**
@@ -343,7 +356,7 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item modifyLore(Function<String, String> function) {
-        this.lore = lore.stream().map(function).collect(Collectors.toList());
+        this.lore = () -> lore.get().stream().map(function).toList();
         return this;
     }
 
@@ -374,7 +387,7 @@ public class Item extends MenuItem {
      * @return the lore
      */
     public List<String> getLore() {
-        return lore;
+        return lore.get();
     }
 
     /**

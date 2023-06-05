@@ -50,7 +50,7 @@ public abstract class MenuAnimation {
      * @param slots The slots which will be set during this time period
      */
     protected void add(int tick, Integer... slots) {
-        this.add(tick, Arrays.asList(slots));
+        this.add(tick, List.of(slots));
     }
 
     /**

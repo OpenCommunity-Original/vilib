@@ -67,6 +67,27 @@ public class Menu implements EventWatcher {
     }
 
     /**
+     * Returns a list of slot numbers that evenly distribute the amount of items in a row.
+     *
+     * @param amountInRow The amount of items in the row.
+     * @return A list of slot numbers that ensure an equal distribution.
+     */
+    public static List<Integer> getEvenlyDistributedSlots(int amountInRow) {
+        return switch (amountInRow) {
+            case 0 -> Collections.emptyList();
+            case 1 -> Collections.singletonList(4);
+            case 2 -> List.of(3, 5);
+            case 3 -> List.of(3, 4, 5);
+            case 4 -> List.of(2, 3, 5, 6);
+            case 5 -> List.of(2, 3, 4, 5, 6);
+            case 6 -> List.of(1, 2, 3, 5, 6, 7);
+            case 7 -> List.of(1, 2, 3, 4, 5, 6, 7);
+            case 8 -> List.of(0, 1, 2, 3, 5, 6, 7, 8);
+            default -> List.of(0, 1, 2, 3, 4, 5, 6, 7, 8);
+        };
+    }
+
+    /**
      * Sets an item to a slot
      *
      * @param slot The slot
@@ -334,30 +355,5 @@ public class Menu implements EventWatcher {
 
     public String getTitle() {
         return title;
-    }
-
-    private List<Integer> getEvenlyDistributedSlots(int amountInRow) {
-        switch (amountInRow) {
-            case 0:
-                return Collections.emptyList();
-            case 1:
-                return Collections.singletonList(4);
-            case 2:
-                return Arrays.asList(3, 5);
-            case 3:
-                return Arrays.asList(3, 4, 5);
-            case 4:
-                return Arrays.asList(2, 3, 5, 6);
-            case 5:
-                return Arrays.asList(2, 3, 4, 5, 6);
-            case 6:
-                return Arrays.asList(1, 2, 3, 5, 6, 7);
-            case 7:
-                return Arrays.asList(1, 2, 3, 4, 5, 6, 7);
-            case 8:
-                return Arrays.asList(0, 1, 2, 3, 5, 6, 7, 8);
-            default:
-                return Arrays.asList(0, 1, 2, 3, 4, 5, 6, 7, 8);
-        }
     }
 }
