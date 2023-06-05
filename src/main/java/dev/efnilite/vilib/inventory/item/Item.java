@@ -38,7 +38,7 @@ public class Item extends MenuItem {
     private String name;
     private ItemMeta meta;
     private Material material;
-    private Supplier<List<String>> lore;
+    private Supplier<List<String>> lore = ArrayList::new;
     private Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 

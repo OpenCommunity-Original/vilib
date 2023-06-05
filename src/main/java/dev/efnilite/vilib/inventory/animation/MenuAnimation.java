@@ -31,7 +31,7 @@ public abstract class MenuAnimation {
 
     /**
      * Set how many ticks it will take to execute one step.
-     * By default 1.
+     * By default, 1.
      *
      * @param ticksPerStep The ticks required to perform one step
      */

@@ -12,13 +12,16 @@ import java.util.List;
  * --------- > x-------- > x-------x > x-------x > etc.
  * ---------   xxxx-----   xxxxxxxxx   xxxxxxxxx
  * <p>
- * Expected duration: 18 ticks
- * Expected time: 900ms
+ * Expected duration: 4 ticks
+ * Expected time: 0.2s
  *
  * @author Efnilite
  */
 public final class SnakeSingleAnimation extends MenuAnimation {
 
+    private static final int DURATION_TICKS = 4;
+
+    private int amountPerTick;
     private int rows;
     private int currentSlot = 0;
     private final Vector heading = new Vector(0, 0, -1);
@@ -27,8 +30,7 @@ public final class SnakeSingleAnimation extends MenuAnimation {
     @Override
     public void init(int rows) {
         this.rows = rows;
-
-        ticksPerStep(1);
+        amountPerTick = (rows * 9 - 1) / DURATION_TICKS;
 
         path.add(0);
         for (int i = 0; i < rows * 9 - 1; i++) { // loop amount of slots times
@@ -45,7 +47,7 @@ public final class SnakeSingleAnimation extends MenuAnimation {
 
     private List<Integer> getFromPath() {
         List<Integer> result = new ArrayList<>();
-        for (int i = 0; i < 2; i++) {
+        for (int i = 0; i < amountPerTick; i++) {
             if (path.size() == 0) {
                 break;
             }

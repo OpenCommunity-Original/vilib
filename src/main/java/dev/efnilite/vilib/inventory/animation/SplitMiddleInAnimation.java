@@ -7,8 +7,8 @@ package dev.efnilite.vilib.inventory.animation;
  * --------- > x-------x > xx-----xx > xxx---xxx > etc.
  * ---------   x-------x   xx-----xx   xxx---xxx
  * <p>
- * Expected duration: 15 ticks
- * Expected time: 750ms
+ * Expected duration: 4 ticks
+ * Expected time: 0.2s
  *
  * @author Efnilite
  */
@@ -16,8 +16,6 @@ public final class SplitMiddleInAnimation extends MenuAnimation {
 
     @Override
     public void init(int rows) {
-        ticksPerStep(2);
-
         add(0, getVertical(8, rows));
         add(0, getVertical(0, rows));
 
