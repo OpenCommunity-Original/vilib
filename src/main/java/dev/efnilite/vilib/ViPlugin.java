@@ -24,7 +24,6 @@ public abstract class ViPlugin extends JavaPlugin {
 
     protected static Gson gson;
     protected static Version version;
-    protected static Logging logging = null;
 
     /**
      * @return a Gson instance which has already been set up.

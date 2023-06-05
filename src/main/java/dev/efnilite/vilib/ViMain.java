@@ -11,6 +11,7 @@ import java.io.File;
 public class ViMain extends ViPlugin {
 
     private static ViMain instance;
+    private static Logging logging;
 
     /**
      * @param child The file name.

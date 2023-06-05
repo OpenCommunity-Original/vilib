@@ -15,11 +15,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.inventory.Inventory;
+import org.bukkit.scheduler.BukkitRunnable;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
-import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 
 /**
  * Class for Menu handling
@@ -28,18 +29,6 @@ import java.util.stream.Collectors;
  */
 @SuppressWarnings("unused")
 public class Menu implements EventWatcher {
-
-    protected boolean deactivated = false;
-
-    protected UUID inventoryId;
-    protected Player player;
-    protected Material filler = null;
-    protected MenuAnimation animation = null;
-
-    protected final int rows;
-    protected final String title;
-    protected final Map<Integer, MenuItem> items = new HashMap<>();
-    protected final List<Integer> evenlyDistributedRows = new ArrayList<>();
 
     private final static Map<UUID, UUID> openMenus = new HashMap<>();
     private final static List<Menu> disabledMenus = new ArrayList<>();
@@ -58,9 +47,19 @@ public class Menu implements EventWatcher {
         }).run();
     }
 
+    protected final int rows;
+    protected final String title;
+    protected final Map<Integer, MenuItem> items = new HashMap<>();
+    protected final List<Integer> evenlyDistributedRows = new ArrayList<>();
+    protected boolean deactivated = false;
+    protected UUID inventoryId;
+    protected Player player;
+    protected Material filler = null;
+    protected MenuAnimation animation = null;
+
     public Menu(int rows, String name) {
         if (rows < 1 || rows > 6) {
-            throw new IllegalArgumentException("Rows is below 1 or above 6");
+            throw new IllegalArgumentException("Rows must be above 1 and below 6");
         }
         this.rows = rows;
         this.title = Strings.colour(name);
@@ -76,7 +75,7 @@ public class Menu implements EventWatcher {
      */
     public Menu item(int slot, MenuItem item) {
         if (slot > rows * 9 || slot < 0) {
-            throw new IllegalArgumentException("Slot " + slot + " is not in inventory");
+            throw new IllegalArgumentException("Slot %d is not in inventory".formatted(slot));
         }
 
         items.put(slot, item);
@@ -93,7 +92,7 @@ public class Menu implements EventWatcher {
     public Menu distributeRowEvenly(int... rows) {
         for (int row : rows) {
             if (row < 0 || row > 5) {
-                throw new IllegalArgumentException("Row must be above 0 and below 6!");
+                throw new IllegalArgumentException("Rows must be above 1 and below 6");
             }
             evenlyDistributedRows.add(row);
         }
@@ -143,7 +142,7 @@ public class Menu implements EventWatcher {
         Inventory inventory = player.getOpenInventory().getTopInventory();
 
         if (inventory.getSize() % 9 != 0) {
-            return;
+            throw new IllegalArgumentException("Invalid inventory type");
         }
 
         for (int slot : slots) {
@@ -158,12 +157,36 @@ public class Menu implements EventWatcher {
         Inventory inventory = player.getOpenInventory().getTopInventory();
 
         if (inventory.getSize() % 9 != 0) {
-            return;
+            throw new IllegalArgumentException("Invalid inventory type");
         }
 
-        for (int slot : items.keySet()) {
-            inventory.setItem(slot, items.get(slot).build());
+        items.keySet().forEach(slot -> inventory.setItem(slot, items.get(slot).build()));
+    }
+
+    /**
+     * Updates all items by calling {@link #update()} in the inventory periodically.
+     *
+     * @param tickInterval The amount of ticks to wait between calling {@link #update()}
+     */
+    public void update(int tickInterval) {
+        if (tickInterval <= 0) {
+            throw new IllegalArgumentException("Tick interval must be above 0");
         }
+
+        Task.create(ViMain.getPlugin())
+                .repeat(tickInterval)
+                .execute(new BukkitRunnable() {
+                    @Override
+                    public void run() {
+                        if (deactivated) {
+                            cancel();
+                            return;
+                        }
+
+                        update();
+                    }
+                })
+                .run();
     }
 
     /**
@@ -217,28 +240,25 @@ public class Menu implements EventWatcher {
         // Filler
         if (filler != null) {
             Item fillerItem = new Item(filler, "<red> "); // fill the background with the same material
-            for (int slot = 0; slot < rows * 9; slot++) {
-                if (items.get(slot) != null) { // ignore already-set items
-                    continue;
-                }
 
-                items.put(slot, fillerItem);
-            }
+            // ignore already-set items
+            IntStream.range(0, rows * 9)
+                    .filter(slot -> items.get(slot) == null)
+                    .forEach(slot -> items.put(slot, fillerItem));
         }
 
 
         player.openInventory(inventory);
+        openMenus.put(player.getUniqueId(), inventoryId);
 
         // Set items
         if (animation == null) {
-            for (int slot : items.keySet()) { // no animation means just setting it normally
-                inventory.setItem(slot, items.get(slot).build());
-            }
+            // no animation means just setting it normally
+            items.keySet().forEach(slot -> inventory.setItem(slot, items.get(slot).build()));
         } else {
             animation.run(this);
         }
 
-        openMenus.put(player.getUniqueId(), inventoryId);
         register();
     }
 
