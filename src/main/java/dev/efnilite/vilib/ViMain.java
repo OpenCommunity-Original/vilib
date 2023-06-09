@@ -3,7 +3,6 @@ package dev.efnilite.vilib;
 import dev.efnilite.vilib.util.Logging;
 import dev.efnilite.vilib.util.elevator.GitElevator;
 import dev.efnilite.vilib.util.elevator.VersionComparator;
-import org.bstats.bukkit.Metrics;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.File;
@@ -32,8 +31,6 @@ public class ViMain extends ViPlugin {
     public void enable() {
         instance = this;
         logging = new Logging(this);
-
-        new Metrics(this, 15090);
 
         logging.info("Enabled vilib " + getDescription().getVersion());
     }
