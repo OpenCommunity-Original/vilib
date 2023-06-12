@@ -1,12 +1,10 @@
 package dev.efnilite.vilib.util;
 
-import org.bukkit.OfflinePlayer;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.SkullMeta;
 
 import java.lang.reflect.Method;
 
-@SuppressWarnings("deprecation")
 public class SkullSetter {
 
     private static boolean isPaper;
@@ -26,17 +24,9 @@ public class SkullSetter {
         }
     }
 
-    public static void setPlayerHead(OfflinePlayer player, SkullMeta meta) {
-        if (Version.isHigherOrEqual(Version.V1_13)) {
-            meta.setOwningPlayer(player);
-        } else {
-            meta.setOwner(player.getName()); // <1.13
-        }
-    }
-
     public static void setPlayerHead(Player player, SkullMeta meta) {
         if (!isPaper) {
-            setPlayerHead((OfflinePlayer) player, meta);
+            meta.setOwningPlayer(player);
             return;
         }
         try {
@@ -46,7 +36,7 @@ public class SkullSetter {
                 setPlayerProfileMethod.invoke(meta, playerProfile);
             }
         } catch (Exception ex) {
-            setPlayerHead((OfflinePlayer) player, meta);
+            meta.setOwningPlayer(player);
         }
     }
 }

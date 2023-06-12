@@ -3,7 +3,6 @@ package dev.efnilite.vilib.inventory.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import dev.efnilite.vilib.util.Strings;
-import dev.efnilite.vilib.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -20,7 +19,6 @@ import org.jetbrains.annotations.Nullable;
 import java.util.*;
 import java.util.function.Function;
 import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * A class for creating items.
@@ -65,11 +63,7 @@ public class Item extends MenuItem {
         if (material != null) {
             this.durability = material.getMaxDurability();
         } else {
-            if (Version.isHigherOrEqual(Version.V1_13)) {
-                material = Material.GRASS_BLOCK;
-            } else {
-                material = Material.GRASS;
-            }
+            material = Material.GRASS_BLOCK;
         }
 
         this.name = name;
@@ -102,12 +96,10 @@ public class Item extends MenuItem {
         meta.setLore(Strings.colour(lore.get()));
         meta.setCustomModelData(modelId);
 
-        if (Version.isHigherOrEqual(Version.V1_13)) {
-            meta.setAttributeModifiers(attributes);
+        meta.setAttributeModifiers(attributes);
 
-            ((Damageable) meta).setDamage(Math.abs(durability - material.getMaxDurability()));
-            meta.setUnbreakable(unbreakable);
-        }
+        ((Damageable) meta).setDamage(Math.abs(durability - material.getMaxDurability()));
+        meta.setUnbreakable(unbreakable);
 
         item.setItemMeta(meta);
         return item;

@@ -3,10 +3,7 @@ package dev.efnilite.vilib.inventory.animation;
 import dev.efnilite.vilib.util.Colls;
 import dev.efnilite.vilib.util.Numbers;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 /**
