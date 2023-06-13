@@ -7,8 +7,8 @@ package dev.efnilite.vilib.inventory.animation;
  * --------- > --------x > -------xx > ------xxx > etc.
  * ---------   --------x   -------xx   ------xxx
  * <p>
- * Expected duration: 4 ticks
- * Expected time: 0.2s
+ * Expected duration: 5 ticks
+ * Expected time: 0.25s
  *
  * @author Efnilite
  */
