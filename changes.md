@@ -1,1 +1,3 @@
-- Removed useless stuff
+- Increased menu animation speed massively
+- Moved to Java 16
+- Removed <1.13 support

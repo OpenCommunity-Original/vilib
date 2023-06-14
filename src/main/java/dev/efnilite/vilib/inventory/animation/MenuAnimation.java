@@ -7,7 +7,10 @@ import dev.efnilite.vilib.util.Task;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.scheduler.BukkitTask;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Super class for all Menu Opening Animations.

@@ -3,7 +3,6 @@ package dev.efnilite.vilib.inventory.item;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import dev.efnilite.vilib.util.Strings;
-import dev.efnilite.vilib.util.Version;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.attribute.Attribute;
@@ -19,8 +18,6 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.*;
 import java.util.function.Function;
-import java.util.function.Supplier;
-import java.util.stream.Collectors;
 
 /**
  * A class for creating items.
@@ -38,7 +35,7 @@ public class Item extends MenuItem {
     private String name;
     private ItemMeta meta;
     private Material material;
-    private Supplier<List<String>> lore = ArrayList::new;
+    private List<String> lore = new ArrayList<>();
     private Multimap<Attribute, AttributeModifier> attributes = HashMultimap.create();
     private Map<Enchantment, Integer> enchantments = new HashMap<>();
 
@@ -65,11 +62,7 @@ public class Item extends MenuItem {
         if (material != null) {
             this.durability = material.getMaxDurability();
         } else {
-            if (Version.isHigherOrEqual(Version.V1_13)) {
-                material = Material.GRASS_BLOCK;
-            } else {
-                material = Material.GRASS;
-            }
+            material = Material.GRASS_BLOCK;
         }
 
         this.name = name;
@@ -99,15 +92,13 @@ public class Item extends MenuItem {
         }
 
         meta.setDisplayName(Strings.colour(name));
-        meta.setLore(Strings.colour(lore.get()));
+        meta.setLore(Strings.colour(lore));
         meta.setCustomModelData(modelId);
 
-        if (Version.isHigherOrEqual(Version.V1_13)) {
-            meta.setAttributeModifiers(attributes);
+        meta.setAttributeModifiers(attributes);
 
-            ((Damageable) meta).setDamage(Math.abs(durability - material.getMaxDurability()));
-            meta.setUnbreakable(unbreakable);
-        }
+        ((Damageable) meta).setDamage(Math.abs(durability - material.getMaxDurability()));
+        meta.setUnbreakable(unbreakable);
 
         item.setItemMeta(meta);
         return item;
@@ -242,8 +233,8 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item lore(@Nullable List<String> lore) {
-        if (lore != null && !lore.isEmpty()) {
-            this.lore = () -> lore;
+        if (lore != null) {
+            this.lore = lore;
         }
 
         return this;
@@ -259,19 +250,19 @@ public class Item extends MenuItem {
         return lore(List.of(lore));
     }
 
-    /**
-     * Sets the lore supplier.
-     *
-     * @param supplier The lore supplier.
-     * @return the instance of this class
-     */
-    public Item lore(@Nullable Supplier<List<String>> supplier) {
-        if (supplier != null) {
-            this.lore = supplier;
-        }
-
-        return this;
-    }
+//    /**
+//     * Sets the lore supplier.
+//     *
+//     * @param supplier The lore supplier.
+//     * @return the instance of this class
+//     */
+//    public Item lore(@Nullable Supplier<List<String>> supplier) {
+//        if (supplier != null) {
+//            this.lore = lore;
+//        }
+//
+//        return this;
+//    }
 
     /**
      * Enchants this item with a specific enchantment and a provided level.
@@ -356,7 +347,9 @@ public class Item extends MenuItem {
      * @return the instance of this class
      */
     public Item modifyLore(Function<String, String> function) {
-        this.lore = () -> lore.get().stream().map(function).toList();
+        this.lore = lore.stream()
+                .map(function)
+                .toList();
         return this;
     }
 
@@ -387,7 +380,7 @@ public class Item extends MenuItem {
      * @return the lore
      */
     public List<String> getLore() {
-        return lore.get();
+        return lore;
     }
 
     /**

@@ -3,7 +3,6 @@ package dev.efnilite.vilib;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.efnilite.vilib.command.ViCommand;
-import dev.efnilite.vilib.util.Logging;
 import dev.efnilite.vilib.util.Task;
 import dev.efnilite.vilib.util.Version;
 import dev.efnilite.vilib.util.elevator.GitElevator;
@@ -45,21 +44,17 @@ public abstract class ViPlugin extends JavaPlugin {
     public void onEnable() {
         version = Version.getVersion();
 
-        if (Version.isHigherOrEqual(Version.V1_13)) { // <1.13 makes me sad
-            gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().disableHtmlEscaping().setLenient().create();
-        } else {
-            gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().disableHtmlEscaping().create();
+        gson = new GsonBuilder().excludeFieldsWithoutExposeAnnotation().disableHtmlEscaping().create();
 
-            Task.create(this).async().repeat(GitElevator.CHECK_INTERVAL).execute(() -> {
-                if (elevator == null) {
-                    elevator = getElevator();
-                }
+        Task.create(this).async().repeat(GitElevator.CHECK_INTERVAL).execute(() -> {
+            if (elevator == null) {
+                elevator = getElevator();
+            }
 
-                if (elevator != null) {
-                    elevator.check();
-                }
-            }).run();
-        }
+            if (elevator != null) {
+                elevator.check();
+            }
+        }).run();
 
         enable();
     }

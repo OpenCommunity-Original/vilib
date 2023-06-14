@@ -5,8 +5,6 @@ import dev.efnilite.vilib.util.Numbers;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Random;
-import java.util.concurrent.ThreadLocalRandom;
 import java.util.stream.IntStream;
 
 /**
@@ -33,14 +31,26 @@ public final class RandomAnimation extends MenuAnimation {
     public void init(int rows) {
         available = Numbers.getFromZero(rows * 9 - 1);
 
-        amountPerTick = available.size() / DURATION_TICKS; // 4 = duration
+        amountPerTick = (int) Math.ceil(available.size() / (double) DURATION_TICKS); // 4 = duration
 
         IntStream.range(0, DURATION_TICKS).forEach(i -> add(i, getRandomSlots()));
     }
 
     private List<Integer> getRandomSlots() {
-        List<Integer> selected = Colls.random(available, amountPerTick);
-        available.removeAll(selected);
+        List<Integer> selected = new ArrayList<>();
+        for (int i = 0; i < amountPerTick; i++) {
+            if (available.isEmpty()) {
+                return selected;
+            }
+
+            int random = Colls.random(available);
+
+            if (available.contains(random)) {
+                selected.add(random);
+                available.remove((Object) random);
+            }
+        }
+
         return selected;
     }
 }
